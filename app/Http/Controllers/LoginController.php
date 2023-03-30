@@ -153,14 +153,15 @@ class LoginController extends Controller
        ]);
     }
 
-    public function sendVerifiedMail(Request $req, $email)
+    public function sendVerifiedMail(Request $req)
     {
         
         $auth = $this->decryptt($req->header("Authorization"));
         $auth_id = $auth[0]["id"];
+        $auth_email = $auth[0]['email'];
 
         if($auth){
-            $user = Login::where('email', $email)->get();
+            $user = Login::where('email', $auth_email)->get();
             if(count($user) > 0){
 
                 $random = Str::random(40);
@@ -168,7 +169,7 @@ class LoginController extends Controller
                 $url = $domain.'/verify-mail/'.$random;
 
                 $data['url'] = $url;
-                $data['email'] = $email;
+                $data['email'] = $auth_email;
                 $data['title'] = "Email verification";
                 $data['body'] = "Please click to here below to verify your mail.";
 

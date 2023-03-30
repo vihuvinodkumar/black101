@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Login extends Authenticatable implements JWTSubject
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens, Notifiable;
     protected $table = 'user';
     protected $primarykey = 'id';
     protected $fillable = [
