@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DonateController;
 use App\Http\Controllers\StoryController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,7 @@ Route::get("getStoryById/{id}", [StoryController::class, "getStoryById"]);
 Route::delete("deleteStory/{id}", [StoryController::class, "deleteStory"]);
 Route::put("updateStory/{id}", [StoryController::class, "updateStory"]);
 
+// for rating-----
+Route::post("addRating", [RatingController::class, "addRating"]);
+Route::get("getAllRating", [RatingController::class, "getAllRating"]);
+Route::get("getAllRatingByProductId/{product_id}", [RatingController::class, "getAllRatingByProductId"]);
