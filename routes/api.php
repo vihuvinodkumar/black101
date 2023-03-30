@@ -25,3 +25,4 @@ Route::post("userLogin", [LoginController::class, "userLogin"]);
 Route::post("saveImage", [LoginController::class, "saveImage"]);
 Route::put("updateUser", [LoginController::class, "updateUser"]);
 Route::get("checkUserDonation", [LoginController::class, "checkUserDonation"]);
+Route::get("sendVerifiedMail/{email}", [LoginController::class, "sendVerifiedMail"]);

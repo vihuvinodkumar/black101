@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Login;
 use Exception;
-use Carbon\Carbon;
 use GuzzleHttp\Psr7\Message;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Carbon;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -149,6 +151,63 @@ class LoginController extends Controller
         "message"=>"your triel not end",
         "code"=>200
        ]);
+    }
+
+    public function sendVerifiedMail(Request $req, $email)
+    {
+        
+        $auth = $this->decryptt($req->header("Authorization"));
+        $auth_id = $auth[0]["id"];
+
+        if($auth){
+            $user = Login::where('email', $email)->get();
+            if(count($user) > 0){
+
+                $random = Str::random(40);
+                $domain = URL::to('/');
+                $url = $domain.'/verify-mail/'.$random;
+
+                $data['url'] = $url;
+                $data['email'] = $email;
+                $data['title'] = "Email verification";
+                $data['body'] = "Please click to here below to verify your mail.";
+
+                Mail::send('verifyMail',['data'=>$data], function($message) use ($data){
+                    $message->to($data['email'])->subject($data['title']);
+                });
+
+                $user = Login::find($user[0]['id']);
+                $user->remember_token = $random;
+                $user->save();
+
+                return response()->json(['success'=>true, 'message'=>'Mail send successfuly....']);
+
+            }else{
+                return response()->json(['success'=>false, 'message'=>'User not found...!']);
+            }
+        }else{
+            return response()->json(['success'=>false, 'message'=>'User is not authenticated']);
+        }
+    }
+
+    public function verificationMail($token)
+    {
+        $user = Login::where('remember_token', $token)->get();
+        if(count($user) > 0){
+
+            $datetime = Carbon::now()->format('Y-m-d H:i:s');
+
+            $user = Login::find($user[0]['id']);
+            $user->remember_token = '';
+            $user->is_verified = 1;
+            $user->email_verified_at = $datetime;
+            $user->save();
+
+            return "<h1> Email verified successfuly..... <h1>"; 
+
+        }else{
+            return view('404');
+        }
     }
 
     public function decryptt($token) {
