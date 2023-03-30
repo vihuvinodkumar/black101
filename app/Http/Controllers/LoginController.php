@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Login;
 use Exception;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Message;
+
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTFactory;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -19,9 +26,12 @@ class LoginController extends Controller
         $userDetails = Login::select(["*"])->where("email", $request->email)->get();
         if(count($userDetails) > 0 ){
             if($request->password === $userDetails[0]->password){
+                $payload = JWTFactory::sub($userDetails[0]->id)->myCustomObject($userDetails)->make();
+                $token = JWTAuth::fromUser($userDetails[0], $payload);
                 return response()->json([
                     "message"=>"login successfully",
                     "code"=>200,
+                    "token"=>$token,
                     "data"=>$userDetails
                 ]);
             }else{
@@ -85,14 +95,17 @@ class LoginController extends Controller
         }
     }
 
-    public function updateUser(Request $request, $id)
+    public function updateUser(Request $request)
     {
+        $auth = $this->decryptt($request->header("Authorization"));
+        $auth_id = $auth[0]["id"];
+
         try {
             $request->validate([
                 "profile_photo" => "required"
             ]);
 
-            $user = Login::select(["*"])->where("id", $id)->update($request->all());
+            $user = Login::select(["*"])->where("id", $auth_id)->update($request->all());
             if($user){
                 return response()->json([
                     "message"=>"profile updated...",
@@ -123,16 +136,25 @@ class LoginController extends Controller
     {
         $date = Carbon::now()->subDay(7);
 
-        $check = Login::where([['created_at','>', $date],["is_donated",'']])->get();
-        if($check->count() > 0){
-             return response()->json([
-                "message"=>"your triel expire please donate",
-                "code"=>400
-             ])->setStatusCode(400);
-        }
+        $check = Login::where('created_at','<', $date)->get();
+       if(count($check) > 0){
         return response()->json([
-            "message"=>"your expire few days left please donate",
-            "code"=>200
-        ]);
+            "message"=>"your access doration expire please donate",
+            "code"=>400,
+            "userDetails"=>$check
+        ])
+        ->setStatusCode(400);
+       }
+       return response()->json([
+        "message"=>"your triel not end",
+        "code"=>200
+       ]);
+    }
+
+    public function decryptt($token) {
+        $exptoken = explode(".", $token);
+          $tokenPayload = base64_decode($exptoken[1]);
+          $jwtPayload = json_decode($tokenPayload, true);
+          return $jwtPayload['myCustomObject'];
     }
 }

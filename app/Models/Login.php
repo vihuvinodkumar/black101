@@ -4,8 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Login extends Model
+
+class Login extends Authenticatable implements JWTSubject
 {
     use HasFactory;
     protected $table = 'user';
@@ -18,6 +23,14 @@ class Login extends Model
         "is_verified",  
         "remember_token",  
         "email_verified_at",  
-        "is_donated",  
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
