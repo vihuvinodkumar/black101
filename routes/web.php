@@ -19,4 +19,6 @@ Route::get('/', function () {
 });
 
 Route::get('/verify-mail/{token}', [LoginController::class, 'verificationMail']);
+Route::get('/reset-password', [LoginController::class, 'resetPasswordLoad']);
+Route::post('/reset-password', [LoginController::class, 'resetPassword']);
 

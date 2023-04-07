@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Login;
+use App\Models\PasswordReset;
 use Exception;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Support\Str;
@@ -134,6 +135,7 @@ class LoginController extends Controller
         return $request->file('file')->store('public/tasks/document');
     }
 
+
     public function checkUserDonation(Request $request)
     {
         $date = Carbon::now()->subDay(7);
@@ -143,7 +145,6 @@ class LoginController extends Controller
         return response()->json([
             "message"=>"your access doration expire please donate",
             "code"=>400,
-            "userDetails"=>$check
         ])
         ->setStatusCode(400);
        }
@@ -152,6 +153,8 @@ class LoginController extends Controller
         "code"=>200
        ]);
     }
+
+    // send mail for mail verication------
 
     public function sendVerifiedMail(Request $req)
     {
@@ -209,6 +212,90 @@ class LoginController extends Controller
         }else{
             return view('404');
         }
+    }
+
+    // forget password ----
+
+    public function forgetPassword(Request $request)
+    {
+        try {
+            $user = Login::select(["*"])->where("email",$request->email)->get();
+
+            if(count($user) > 0 ){
+                
+                $token = Str::random(40);
+                $domain = URL::to('/');
+                $url = $domain.'/reset-password?token='.$token;
+
+                $data['url'] = $url;
+                $data['email'] = $request->email;
+                $data['title'] = "Reset Password";
+                $data['body'] = "Please click to here below to password reset.";
+
+                Mail::send('resetPassword',['data'=>$data], function($message) use ($data){
+                    $message->to($data['email'])->subject($data['title']);
+                });
+
+                $datetime = Carbon::now()->format('Y-m-d H:i:s');
+                PasswordReset::updateOrCreate(
+                    ['email' => $request->email],
+                    [
+                        'email' =>$request->email,
+                        'token' => $token,
+                        'created_at' => $datetime
+                    ]
+                    );
+
+                    return response()->json([
+                        "success"=>true,
+                        "message"=>"please check your mail for reset your password"
+                    ]);
+
+            }else{
+                return response()->json([
+                    "success"=>false,
+                    "message"=>"user not found !"
+                ]); 
+            }
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                "success"=>false,
+                "message"=>$e->getMessage()
+            ]);
+        }
+    }
+
+    // reset password view load-----
+
+    public function resetPasswordLoad(Request $request)
+    {
+        $resetData = PasswordReset::where('token', $request->token)->get();
+        if(isset($request->token) && count($resetData) > 0){
+
+            $user = Login::where('email', $resetData[0]['email'])->get();
+            return view('resetPasswordForm', compact('user'));
+
+        }else{
+            return view('404'); 
+        }
+    }
+
+    // reset password functionality----
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'password'=>'required|string|min:6|confirmed'
+        ]);
+
+        $user = Login::find($request->id);
+        $user->password = $request->password;
+        $user->save();
+
+        PasswordReset::where("email", $user->email)->delete();
+
+        return "<h1> Your password has been reset successfully </h1>";
     }
 
     public function decryptt($token) {
