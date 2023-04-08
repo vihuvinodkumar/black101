@@ -68,4 +68,20 @@ class RatingController extends Controller
         ])
         ->setStatusCode(400);
     }
+
+    public function updateRating(Request $request, $id)
+    {
+        $result = Rating::select(["*"])->where('id', $id)->update($request->all());
+        if($result){
+            return response()->json([
+                "code"=>200,
+                "messsage"=>"update rating successfully",
+            ]);
+        }
+        return response()->json([
+            "code"=>400,
+            "message"=>"id not found !"
+        ])
+        ->setStatusCode(400);
+    }
 }

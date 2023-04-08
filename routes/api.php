@@ -49,3 +49,4 @@ Route::put("updateStory/{id}", [StoryController::class, "updateStory"]);
 Route::post("addRating", [RatingController::class, "addRating"]);
 Route::get("getAllRating", [RatingController::class, "getAllRating"]);
 Route::get("getAllRatingByProductId/{product_id}", [RatingController::class, "getAllRatingByProductId"]);
+Route::put("updateRating/{id}", [RatingController::class, "updateRating"]);
