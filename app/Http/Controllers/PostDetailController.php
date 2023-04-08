@@ -10,7 +10,7 @@ use exception;
 
 class PostDetailController extends Controller
 {
-    public function getFullPostDetails()
+    public function getFullPostDetails(Request $request)
     {         
         try {
 
@@ -22,8 +22,12 @@ class PostDetailController extends Controller
     
             for($i=0; $i < count($data); $i++){
     
-                array_push($final_data, ["post"=>$data, "rating"=>DB::table('rating')->where('product_id', '=', $data[$i]->id)->get(),
-                "like"=>DB::table('likes')->where('post_id','=', $data[$i]->id)->get()]
+                array_push($final_data, [
+                    "post"=>$data[$i], 
+                    "rating"=>DB::table('rating')->where('product_id', '=', $data[$i]->id)->get(),
+                    "likes"=>DB::table('likes')->where('post_id','=', $data[$i]->id)->get(),
+                    "my_likes"=>DB::table('likes')->where([['post_id', $data[$i]->id], ['user_id', $request->user_id]])->get()
+                ]
             );
             }
             return response()->json([
