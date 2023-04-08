@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DonateController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\PostDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,10 @@ Route::post("addRating", [RatingController::class, "addRating"]);
 Route::get("getAllRating", [RatingController::class, "getAllRating"]);
 Route::get("getAllRatingByProductId/{product_id}", [RatingController::class, "getAllRatingByProductId"]);
 Route::put("updateRating/{id}", [RatingController::class, "updateRating"]);
+Route::get("getAllRatingByProductId/{product_id}", [RatingController::class, "getAllRatingByProductId"]);
+Route::post("add_like", [RatingController::class, "add_like"]);
+Route::delete("dislike/{id}", [RatingController::class, "dislike"]);
+
+
+// post details -------
+Route::get('getFullPostDetails', [PostDetailController::class, 'getFullPostDetails']);
