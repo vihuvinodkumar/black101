@@ -29,7 +29,7 @@ Route::post("userLogin", [LoginController::class, "userLogin"]);
 Route::post("saveImage", [LoginController::class, "saveImage"]);
 Route::put("updateUser", [LoginController::class, "updateUser"]);
 Route::get("checkUserDonation", [LoginController::class, "checkUserDonation"]);
-Route::get("sendVerifiedMail", [LoginController::class, "sendVerifiedMail"]);
+Route::get("sendVerifiedMail/{email}", [LoginController::class, "sendVerifiedMail"]);
 Route::post("forgetPassword", [LoginController::class, "forgetPassword"]);
 
 // for donate----

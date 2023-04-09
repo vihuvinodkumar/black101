@@ -13,9 +13,11 @@ class Story extends Model
     protected $fillable = [
         "type",
         "url",
-        "headline",  
-        "sub_headline",  
-        "overview",  
-        "publish_at",  
+        "headline",
+        "sub_headline",
+        "overview",
+        "publish_at",
+        "thumbnail",
+        "cft"
     ];
 }
