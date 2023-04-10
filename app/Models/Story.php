@@ -19,5 +19,6 @@ class Story extends Model
         "publish_at",
         "thumbnail",
         "cft"
+
     ];
 }
