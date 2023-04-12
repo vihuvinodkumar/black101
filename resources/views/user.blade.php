@@ -60,7 +60,7 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td><img src={{ "http://localhost:8000/storage/".str_replace('public', '', $user->profile_photo) }} style="height:50px;width:50px;" /></td>
+                    <td><img src="{{ 'http://100.25.19.89/black101/public/storage/'.str_replace('public', '', $user->profile_photo) }}" style="height:50px;width:50px;" /></td>
                     <td>{{ $user->created_at }}</td>
                     <td>
                         @if($user->is_verfied!=0)
