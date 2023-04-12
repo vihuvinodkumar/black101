@@ -128,7 +128,7 @@
                         <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
                         <div class="col-sm-8">
                             @if(isset($story->thumbnail))
-                            <img src="{{ 'http://localhost:8000/storage/'.str_replace('public', '', $story->thumbnail?:'') }}" style="height:100px;width:100px;" />
+                            <img src="{{ 'http://100.25.19.89/black101/public/storage'.str_replace('public', '', $story->thumbnail?:'') }}" style="height:100px;width:100px;" />
                             <input type="file" class="form-control-file" {{ $story->thumbnail ?: "required" }} name="thumbnail" id="thumbnail">
                             @else
                             <input type="file" class="form-control-file" required name="thumbnail" id="thumbnail">
