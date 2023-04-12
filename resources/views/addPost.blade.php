@@ -96,19 +96,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">Home </a>
+                    <a class="nav-link" href="/black101/public/dashboard">Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user">user</a>
+                    <a class="nav-link" href="/black101/public/user">user</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/allpost">post</a>
+                    <a class="nav-link" href="/black101/public/allpost">post</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/addPost">Add New Post</a>
+                    <a class="nav-link" href="/black101/public/addPost">Add New Post</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/donation">donation</a>
+                    <a class="nav-link" href="/black101/public/donation">donation</a>
                 </li>
 
             </ul>
