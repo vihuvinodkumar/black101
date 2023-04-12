@@ -1,0 +1,378 @@
+/* Make the toggler icon white */
+.navbar-toggler-icon {
+    background-color: #fff;
+}
+
+/* Set the text color to white */
+.navbar-nav .nav-link {
+    color: #fff;
+}
+
+/* Change background color of active menu item */
+.navbar-nav .active > .nav-link {
+    background-color: #222;
+}
+
+/* Change background color of toggler when menu is open */
+.navbar-toggler:not(.collapsed) {
+    background-color: #222;
+}
+
+.left {
+    justify-content: flex-end;
+    float: 1;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: "Nunito Sans", sans-serif;
+}
+
+.carousel {
+    height: 100vh;
+    background: #ececec;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel .image-1,
+.carousel .image-2 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    -webkit-transition: opacity 0.5s ease-in-out,
+        -webkit-transform 3s ease-in-out;
+    transition: opacity 0.5s ease-in-out, -webkit-transform 3s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out, transform 3s ease-in-out;
+    transition: opacity 0.5s ease-in-out, transform 3s ease-in-out;
+    transition: opacity 0.5s ease-in-out, transform 3s ease-in-out,
+        -webkit-transform 3s ease-in-out;
+    -webkit-transition-delay: 1.5s;
+    -o-transition-delay: 1.5s;
+    transition-delay: 1.5s;
+}
+
+.carousel .image-1 {
+    background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/537051/city22222.jpg")
+        center center no-repeat;
+    background-size: cover;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.carousel .image-2 {
+    background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/537051/forest.jpg")
+        center center no-repeat;
+    background-size: cover;
+    opacity: 0;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.carousel.bottom .image-1 {
+    opacity: 0;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.carousel.bottom .image-2 {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.carousel .carousel-content {
+    height: 310vh;
+    position: relative;
+    -webkit-transition: -webkit-transform 3s
+        cubic-bezier(0.53, 0.06, 0.33, 0.74);
+    transition: -webkit-transform 3s cubic-bezier(0.53, 0.06, 0.33, 0.74);
+    -o-transition: transform 3s cubic-bezier(0.53, 0.06, 0.33, 0.74);
+    transition: transform 3s cubic-bezier(0.53, 0.06, 0.33, 0.74);
+    transition: transform 3s cubic-bezier(0.53, 0.06, 0.33, 0.74),
+        -webkit-transform 3s cubic-bezier(0.53, 0.06, 0.33, 0.74);
+}
+
+.carousel.bottom .carousel-content {
+    -webkit-transform: translateY(-205vh);
+    -ms-transform: translateY(-205vh);
+    transform: translateY(-205vh);
+}
+
+.carousel .carousel-content .carousel-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.carousel .carousel-content .carousel-overlay img {
+    height: 100%;
+    width: 100%;
+}
+
+/* TOP ELEMENT */
+.carousel .carousel-content .content-top {
+    position: absolute;
+    top: 20vh;
+    width: 50%;
+    right: 0;
+}
+
+/* BOTTOM ELEMENT */
+.carousel .carousel-content .content-bottom {
+    position: absolute;
+    bottom: 45vh;
+    left: 10vw;
+    width: 50%;
+}
+
+/* ELEMENT'S CONTENT */
+.carousel .carousel-content .content h2 {
+    font-size: 60px;
+    text-transform: uppercase;
+    font-weight: 900;
+    -webkit-transition: opacity 0.5s ease-in-out,
+        -webkit-transform 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
+    -o-transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out,
+        -webkit-transform 0.5s ease-in-out;
+}
+
+.carousel .carousel-content .content h3 {
+    font-size: 45px;
+    text-transform: uppercase;
+    font-weight: 200;
+    -webkit-transition: opacity 0.5s ease-in-out,
+        -webkit-transform 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
+    -o-transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out,
+        -webkit-transform 0.5s ease-in-out;
+}
+
+.carousel .carousel-content .content h4 {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #0099cc;
+    margin-top: 10px;
+    -webkit-transition: opacity 0.5s ease-in-out,
+        -webkit-transform 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
+    -o-transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out,
+        -webkit-transform 0.5s ease-in-out;
+}
+
+.carousel .carousel-content .content .logo {
+    margin-top: 20px;
+    -webkit-transition: opacity 0.5s ease-in-out,
+        -webkit-transform 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
+    -o-transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out,
+        -webkit-transform 0.5s ease-in-out;
+}
+
+.carousel .carousel-content .content .logo img {
+    width: 80px;
+}
+
+.carousel .carousel-content .content-top h2 {
+    -webkit-transition-delay: 2.8s;
+    -o-transition-delay: 2.8s;
+    transition-delay: 2.8s;
+}
+
+.carousel.bottom .carousel-content .content-top h2 {
+    -webkit-transition-delay: 0.2s;
+    -o-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+}
+
+.carousel .carousel-content .content-top h3 {
+    -webkit-transition-delay: 2.6s;
+    -o-transition-delay: 2.6s;
+    transition-delay: 2.6s;
+}
+
+.carousel.bottom .carousel-content .content-top h3 {
+    -webkit-transition-delay: 0.3s;
+    -o-transition-delay: 0.3s;
+    transition-delay: 0.3s;
+}
+
+.carousel .carousel-content .content-top h4 {
+    -webkit-transition-delay: 2.4s;
+    -o-transition-delay: 2.4s;
+    transition-delay: 2.4s;
+}
+
+.carousel.bottom .carousel-content .content-top h4 {
+    -webkit-transition-delay: 0.4s;
+    -o-transition-delay: 0.4s;
+    transition-delay: 0.4s;
+}
+
+.carousel .carousel-content .content-top .logo {
+    -webkit-transition-delay: 2.2s;
+    -o-transition-delay: 2.2s;
+    transition-delay: 2.2s;
+}
+
+.carousel.bottom .carousel-content .content-top .logo {
+    -webkit-transition-delay: 0.5s;
+    -o-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+}
+
+.carousel.bottom .carousel-content .content-top h2,
+.carousel.bottom .carousel-content .content-top h3,
+.carousel.bottom .carousel-content .content-top h4,
+.carousel.bottom .carousel-content .content-top .logo {
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+.carousel .carousel-content .content-bottom h2,
+.carousel .carousel-content .content-bottom h3,
+.carousel .carousel-content .content-bottom h4,
+.carousel .carousel-content .content-bottom .logo {
+    -webkit-transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    transform: translateY(50%);
+    opacity: 0;
+}
+
+.carousel.bottom .carousel-content .content-bottom h2,
+.carousel.bottom .carousel-content .content-bottom h3,
+.carousel.bottom .carousel-content .content-bottom h4,
+.carousel.bottom .carousel-content .content-bottom .logo {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.carousel .carousel-content .content-bottom h2 {
+    -webkit-transition-delay: 0.5s;
+    -o-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+}
+
+.carousel.bottom .carousel-content .content-bottom h2 {
+    -webkit-transition-delay: 2.2s;
+    -o-transition-delay: 2.2s;
+    transition-delay: 2.2s;
+}
+
+.carousel .carousel-content .content-bottom h3 {
+    -webkit-transition-delay: 0.4s;
+    -o-transition-delay: 0.4s;
+    transition-delay: 0.4s;
+}
+
+.carousel.bottom .carousel-content .content-bottom h3 {
+    -webkit-transition-delay: 2.4s;
+    -o-transition-delay: 2.4s;
+    transition-delay: 2.4s;
+}
+
+.carousel .carousel-content .content-bottom h4 {
+    -webkit-transition-delay: 0.3s;
+    -o-transition-delay: 0.3s;
+    transition-delay: 0.3s;
+}
+
+.carousel.bottom .carousel-content .content-bottom h4 {
+    -webkit-transition-delay: 2.6s;
+    -o-transition-delay: 2.6s;
+    transition-delay: 2.6s;
+}
+
+.carousel .carousel-content .content-bottom .logo {
+    -webkit-transition-delay: 0.2s;
+    -o-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+}
+
+.carousel.bottom .carousel-content .content-bottom .logo {
+    -webkit-transition-delay: 2.8s;
+    -o-transition-delay: 2.8s;
+    transition-delay: 2.8s;
+}
+
+/* responsveness */
+@media (max-width: 992px) {
+    .carousel .carousel-content .content h2 {
+        font-size: 40px;
+    }
+
+    .carousel .carousel-content .content h3 {
+        font-size: 30px;
+    }
+
+    .carousel .carousel-content .content h4 {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel .carousel-content .carousel-overlay img {
+        -o-object-fit: cover;
+        object-fit: cover;
+    }
+
+    .carousel .carousel-content .content-top {
+        width: 60%;
+    }
+
+    .carousel .carousel-content .content-bottom {
+        bottom: 60vh;
+    }
+
+    .carousel .carousel-content .content h2 {
+        font-size: 30px;
+    }
+
+    .carousel .carousel-content .content h3 {
+        font-size: 23px;
+    }
+
+    .carousel .carousel-content .content h4 {
+        font-size: 18px;
+    }
+
+    .carousel .carousel-content .content .logo {
+        width: 50px;
+    }
+}
+
+@media (max-height: 768px) {
+    .carousel .carousel-content .content-top {
+        top: 10vh;
+    }
+}

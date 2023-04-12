@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 
@@ -18,7 +19,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get("login", [adminController::class, "login"])->name("login");
+Route::get("user", [adminController::class, "showAllUsers"])->name("user");
+Route::post("savePost", [adminController::class, "submitForm"])->name("savePost");
+Route::post("dashboard", function () {
+    return view('dashboard');
+});
+Route::get("addPost", function () {
+    return view("addPost");
+});
+
+Route::get("editpost/{id}", [adminController::class, "editpost"])->name("editpost");
+Route::get("allpost", [adminController::class, "getAllPost"])->name("allpost");
+Route::put("savePostEdit/{id}", [adminController::class, "savePostEdit"])->name("savePostEdit");
+
 Route::get('/verify-mail/{token}', [LoginController::class, 'verificationMail']);
 Route::get('/reset-password', [LoginController::class, 'resetPasswordLoad']);
 Route::post('/reset-password', [LoginController::class, 'resetPassword']);
-
