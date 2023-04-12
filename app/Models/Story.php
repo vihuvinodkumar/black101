@@ -18,7 +18,8 @@ class Story extends Model
         "overview",
         "publish_at",
         "thumbnail",
-        "cft"
+        "cft",
+        "day_of_publish"
 
     ];
 }
