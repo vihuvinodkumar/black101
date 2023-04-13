@@ -47,6 +47,7 @@ class adminController extends Controller
             $story->save();
             return view("dashboard");
         } catch (Exception $e) {
+            return $e;
             return view("addPost");
         }
     }
@@ -82,7 +83,7 @@ class adminController extends Controller
     {
         $story = Story::find($id);
         if ($story) {
-            return view('addpost', compact('story'));
+            return view('addPost', compact('story'));
         } else {
             return view("404");
         }
