@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Like;
 use Illuminate\Http\Request;
 use App\Models\Story;
+use Carbon\Carbon;
 use Exception;
 
 class StoryController extends Controller
@@ -102,6 +104,33 @@ class StoryController extends Controller
             "message" => "id not found"
         ])
             ->setStatusCode(400);
+    }
+
+    public function getPostByUserId(Request $request){
+
+        $auth = $this->decryptt($request->header("Authorization"));
+
+
+        // $user_created_day = $auth[0]->created_at->day;
+        // $current_year = Carbon::now()->year;
+
+        // $stories = DB::table('story')
+        //     ->whereRaw('DAY(story.created_at) > ?', [$user_created_day])
+        //     ->whereRaw('YEAR(story.created_at) = ?', [$current_year])
+        //     ->get();
+
+        // return response()->json(['data' => $stories]);
+
+        $user_created_at_day = $auth[0]['created_at']->day;
+        $current_year = date('Y');
+        
+        $stories = Story::whereDay('created_at', '>=', $user_created_at_day)
+                        ->whereYear('created_at', $current_year)
+                        ->get();
+                        
+        return response()->json($stories);
+        
+        return $post;
     }
 
     public function decryptt($token)

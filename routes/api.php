@@ -45,6 +45,7 @@ Route::get("getAllStory", [StoryController::class, "getAllStory"]);
 Route::get("getStoryById/{id}", [StoryController::class, "getStoryById"]);
 Route::delete("deleteStory/{id}", [StoryController::class, "deleteStory"]);
 Route::put("updateStory/{id}", [StoryController::class, "updateStory"]);
+Route::get("getPostByUserId", [StoryController::class, "getPostByUserId"]);
 
 // for rating-----
 Route::post("addRating", [RatingController::class, "addRating"]);
