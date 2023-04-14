@@ -13,9 +13,12 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+    protected $commands = [
+        Commands\SendDailyPushNotification::class,
+    ];
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('notification:push-daily')->dailyAt('9:00')->timezone('America/New_York');
     }
 
     /**
