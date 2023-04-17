@@ -7,6 +7,7 @@ use App\Http\Controllers\DonateController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\PostDetailController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,8 @@ Route::delete("dislike/{id}", [RatingController::class, "dislike"]);
 
 // post details -------
 Route::get('getFullPostDetails', [PostDetailController::class, 'getFullPostDetails']);
+
+
+// Dashboard-------
+Route::get('getDashboard', [DashboardController::class, 'getDashboard']);
+
