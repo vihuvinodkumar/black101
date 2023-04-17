@@ -8,6 +8,7 @@ use App\Http\Controllers\StoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\PostDetailController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PushNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +65,7 @@ Route::get('getFullPostDetails', [PostDetailController::class, 'getFullPostDetai
 
 // Dashboard-------
 Route::get('getDashboard', [DashboardController::class, 'getDashboard']);
+
+// push notification-----
+Route::post('pushNotification', [PushNotificationController::class, 'pushNotification']);
 
