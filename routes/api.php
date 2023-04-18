@@ -7,6 +7,8 @@ use App\Http\Controllers\DonateController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\PostDetailController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PushNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,7 @@ Route::get("getAllStory", [StoryController::class, "getAllStory"]);
 Route::get("getStoryById/{id}", [StoryController::class, "getStoryById"]);
 Route::delete("deleteStory/{id}", [StoryController::class, "deleteStory"]);
 Route::put("updateStory/{id}", [StoryController::class, "updateStory"]);
+Route::get("getPostByUserId", [StoryController::class, "getPostByUserId"]);
 
 // for rating-----
 Route::post("addRating", [RatingController::class, "addRating"]);
@@ -58,3 +61,11 @@ Route::delete("dislike/{id}", [RatingController::class, "dislike"]);
 
 // post details -------
 Route::get('getFullPostDetails', [PostDetailController::class, 'getFullPostDetails']);
+
+
+// Dashboard-------
+Route::get('getDashboard', [DashboardController::class, 'getDashboard']);
+
+// push notification-----
+Route::post('pushNotification', [PushNotificationController::class, 'pushNotification']);
+
