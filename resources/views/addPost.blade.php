@@ -19,7 +19,7 @@
         }
 
         form {
-            max-width: 500px;
+            max-width: 800px;
             width: 100%;
             padding: 20px;
             border: 1px solid #ccc;
@@ -84,122 +84,121 @@
             text-align: center;
             padding: 30px;
         }
+
+        .label-small {
+            color: #c4c4c4;
+            font-size: 10px;
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Black 101</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/dashboard">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/user">user</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/allpost">post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/addPost">Add New Post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/donation">donation</a>
-                </li>
-
-            </ul>
+    <div class="container-fluid row d-flex">
+        <div class="col-lg-2">
+            @include("sidebar/sidebar")
         </div>
-    </nav>
-    <div class="container-fluid" style="margin-top:100px">
-
-        <div class="body">
-            @if(isset($story))
-            <form action="{{ route('savePostEdit',$story->id) }}" method="POST" enctype="multipart/form-data">
-                @method('PUT')
+        <div class="col-lg-10">
+            @if(isset($code))
+            @if($code == 200)
+            <div class="alert alert-success" role="alert">
                 @else
-                <form method="post" action="{{ route('savePost') }}" enctype="multipart/form-data">
+                <div class="alert alert-danger" role="alert">
                     @endif
-                    @csrf
-                    <div class="form-group row">
-                        <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
-                        <div class="col-sm-8">
-                            @if(isset($story->thumbnail))
-                            <img src="{{ 'http://100.25.19.89/black101/public/storage'.str_replace('public', '', $story->thumbnail?:'') }}" style="height:100px;width:100px;" />
-                            <input type="file" class="form-control-file" {{ $story->thumbnail ?: "required" }} name="thumbnail" id="thumbnail">
+                    {{$message}}
+                </div>
+                @endif
+
+                <div class="container-fluid" style="margin-top:50px">
+
+                    <div class="body">
+                        @if(isset($story))
+                        <form action="{{ route('savePostEdit',$story->id) }}" method="POST" enctype="multipart/form-data">
+                            @method('PUT')
                             @else
-                            <input type="file" class="form-control-file" required name="thumbnail" id="thumbnail">
-                            @endif
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="title" class="col-sm-4 col-form-label">Title</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" value="{{ isset($story) ? $story->headline :'' }}" required name="title" id="title">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="type" class="col-sm-4 col-form-label">Type</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" required name="type" id="type">
-                                @if(isset($story))
-                                <option value="V" {{ $story->type=="V"?"selected":"" }}>Video</option>
-                                <option value="I" {{ $story->type=="I"?"selected":"" }}>Image</option>
-                                <option value="T" {{ $story->type=="T"?"selected":"" }}>Quote</option>
-                                @else
-                                <option value="V">Video</option>
-                                <option value="I">Image</option>
-                                <option value="T">Quote</option>
+                            <form method="post" action="{{ route('savePost') }}" enctype="multipart/form-data">
                                 @endif
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="assets" class="col-sm-4 col-form-label">Assets</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" value="{{ isset($story) ? $story->url:''}}" required name="assets" id="assets">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="headline" class="col-sm-4 col-form-label">sub Title</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" value="{{ isset($story) ? $story->sub_headline :'' }}" required name="headline" id="headline">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="overview" class="col-sm-4 col-form-label">Overview</label>
-                        <div class="col-sm-8">
-                            <textarea class="form-control" required id="overview" name="overview" rows="3"> {{ isset($story) ? $story->overview :""}} </textarea>
-                        </div>
-                    </div>
-                    @if(isset($story))
-                    <div><input type="text" class="form-control" value="{{ date($story->publish_at) }}" disabled /></div>
-                    @else
-                    <div class="form-group row">
-                        <label for="publish_at" class="col-sm-4 col-form-label">Publish At</label>
-                        <div class="col-sm-8">
-                            <input type="date" class="form-control" required name="publish_at" id="publish_at">
-                        </div>
-                    </div>
-                    @endif
-                    <div class="form-group row">
-                        <label for="cft" class="col-sm-4 col-form-label">Charactor focus of today</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" required name="cft" value="{{isset($story)? $story->cft:'' }}" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-8 offset-sm-2">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
+                                @csrf
+                                <div class="form-group row">
+                                    <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
+                                    <div class="col-sm-8">
+                                        @if(isset($story->thumbnail))
+                                        <img src="{{ 'http://100.25.19.89/black101/public/storage'.str_replace('public', '', $story->thumbnail?:'') }}" style="height:100px;width:100px;" />
+                                        <input type="file" class="form-control-file" {{ $story->thumbnail ?: "required" }} name="thumbnail" id="thumbnail">
+                                        @else
+                                        <input type="file" class="form-control-file" required name="thumbnail" id="thumbnail">
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="title" class="col-sm-4 col-form-label">Title</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" value="{{ isset($story) ? $story->headline :'' }}" required name="title" id="title">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="headline" class="col-sm-4 col-form-label">Sub Title</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" value="{{ isset($story) ? $story->sub_headline :'' }}" required name="headline" id="headline">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="type" class="col-sm-4 col-form-label">Type</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" required name="type" id="type">
+                                            @if(isset($story))
+                                            <option value="V" {{ $story->type=="V"?"selected":"" }}>Video</option>
+                                            <option value="I" {{ $story->type=="I"?"selected":"" }}>Image</option>
+                                            <option value="T" {{ $story->type=="T"?"selected":"" }}>Quote</option>
+                                            @else
+                                            <option value="V">Video</option>
+                                            <option value="I">Image</option>
+                                            <option value="T">Quote</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="assets" class="col-sm-4 col-form-label">Assets<label class="label-small">Enter URL for video and image or your Quote Text</label></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" value="{{ isset($story) ? $story->url:''}}" required name="assets" id="assets">
+                                    </div>
+                                </div>
 
-                </form>
+                                <div class="form-group row">
+                                    <label for="overview" class="col-sm-4 col-form-label">Overview</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" required id="overview" name="overview" rows="3"> {{ isset($story) ? $story->overview :""}} </textarea>
+                                    </div>
+                                </div>
+                                @if(isset($story))
+                                <div><input type="text" class="form-control" value="{{ date($story->publish_at) }}" disabled /></div>
+                                @else
+                                <div class="form-group row">
+                                    <label for="publish_at" class="col-sm-4 col-form-label">Publish At</label>
+                                    <div class="col-sm-8">
+                                        <input type="date" class="form-control" required name="publish_at" id="publish_at">
+                                    </div>
+                                </div>
+                                @endif
+                                <div class="form-group row">
+                                    <label for="cft" class="col-sm-4 col-form-label">Charactor focus of today</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" required name="cft" value="{{isset($story)? $story->cft:'' }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-8 offset-sm-2">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
 
-        </div>
+                            </form>
+
+                    </div>
+                </div>
+            </div>
+
+
 
 </body>
 

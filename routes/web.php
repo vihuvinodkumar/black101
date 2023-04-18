@@ -22,9 +22,7 @@ Route::get('/', function () {
 Route::get("login", [adminController::class, "login"])->name("login");
 Route::get("user", [adminController::class, "showAllUsers"])->name("user");
 Route::post("savePost", [adminController::class, "submitForm"])->name("savePost");
-Route::post("dashboard", function () {
-    return view('dashboard');
-});
+Route::get("dashboard", [adminController::class, "dashboard"])->name("dashboard");
 Route::get("addPost", function () {
     return view("addPost");
 });
