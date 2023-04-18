@@ -16,67 +16,52 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Black 101</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/dashboard">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/user">user</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/allpost">post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/addPost">Add New Post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/donation">donation</a>
-                </li>
+    <div class="container-fluid d-flex row">
 
-            </ul>
+        <div class="col-lg-2">
+            @include("sidebar/sidebar")
         </div>
-    </nav>
-    <div class="container">
-        <table>
-            <tbody>
-                <tr>
-                    <th><strong>Id</strong></th>
-                    <th><strong>Name</strong></th>
-                    <th><strong>Email</strong></th>
-                    <th><strong>Created At</strong></th>
-                    <th><strong>Profile Photo</strong></th>
-                    <th><strong>Verified</strong></th>
-                </tr>
+        <div class="col-lg-10">
+            <div class="container-fluid m-4">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th><strong>Id</strong></th>
+                            <th><strong>Photo</strong></th>
+                            <th><strong>Name</strong></th>
+                            <th><strong>Email</strong></th>
+                            <th><strong>Created At</strong></th>
+                            <th><strong>Verified</strong></th>
+                        </tr>
 
-                <tr>
-                    @foreach ($users as $user)
-                <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td><img src="{{ 'http://100.25.19.89/black101/public/storage/'.str_replace('public', '', $user->profile_photo) }}" style="height:50px;width:50px;" /></td>
-                    <td>{{ $user->created_at }}</td>
-                    <td>
-                        @if($user->is_verfied!=0)
-                        <img src="{{ asset('verify.png') }}" />
-                        @else
-                        <img src="{{ asset('unverify.png') }}" />
-                        @endif
-                    </td>
+                        <tr>
+                            @foreach ($users as $user)
+                        <tr>
 
-                </tr>
-                @endforeach
-                </tr>
+                            <td>{{ $user->id }}</td>
+                            <td><img src="{{ 'http://100.25.19.89/black101/public/storage/'.str_replace('public', '', $user->profile_photo) }}" style="height:50px;width:50px;" /></td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ \Carbon\Carbon::parse($user->created_at)->format('h:i / d-m-y ') }}</td>
+                            <td>
+                                @if($user->is_verified==1)
+                                <img src="{{ asset('verify.png') }}" />
+                                @else
+                                <img src="{{ asset('unverify.png') }}" />
+                                @endif
+                            </td>
 
-            </tbody>
-        </table>
+                        </tr>
+                        @endforeach
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
+
 
 </body>
 

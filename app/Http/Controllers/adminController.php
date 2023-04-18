@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Donate;
 use App\Models\Login;
+use App\Models\Rating;
 use App\Models\Story;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -15,7 +17,7 @@ class adminController extends Controller
         $email = $request->input('username');
         $password = $request->input('password');
         if ($email == 'admin@admin.com' && $password == '12345') {
-            return view('dashboard');
+            return redirect('dashboard');
         } else {
             return view('welcome')->with('error', 'Invalid email or password.');
         }
@@ -24,7 +26,6 @@ class adminController extends Controller
     public function submitForm(Request $request)
     {
         try {
-
             $thumbnail = $request->file('thumbnail')->store('public/tasks/document');
             $title = $request->input('title');
             $type = $request->input('type');
@@ -33,7 +34,6 @@ class adminController extends Controller
             $overview = $request->input('overview');
             $publishAt = $request->input('publish_at');
             $cft = $request->input('cft');
-
             $story = new Story();
             $story->thumbnail = $thumbnail;
             $story->headline = $title;
@@ -45,38 +45,48 @@ class adminController extends Controller
             $story->cft = $cft;
             $story->day_of_publish = $this->getDayNumberInCurrentYear($publishAt);
             $story->save();
-            return view("dashboard");
+            $code = 200;
+            $message = "Post save successfully";
+            return view('addPost')->with("code", $code)->with("message", $message);
         } catch (Exception $e) {
-            return $e;
-            return view("addPost");
+            $message = "Error while added this post please check if all details entered is corrent and date is unique.";
+            return view('addPost')->with("code", 400)->with("message", $message);
         }
     }
 
     function savePostEdit(Request $request, $id)
     {
-        $thumbnail = "";
-        if ($request->hasFile('thumbnail')) {
-            $thumbnail = $request->file('thumbnail')->store('public/tasks/document');
-        }
-        $title = $request->input('title');
-        $type = $request->input('type');
-        $assets = $request->input('assets');
-        $headline = $request->input('headline');
-        $overview = $request->input('overview');
-        $cft = $request->input('cft');
+        try {
 
-        $story = Story::find($id);
-        if ($request->hasFile('thumbnail')) {
-            $story->thumbnail = $thumbnail;
+            $thumbnail = "";
+            if ($request->hasFile('thumbnail')) {
+                $thumbnail = $request->file('thumbnail')->store('public/tasks/document');
+            }
+            $title = $request->input('title');
+            $type = $request->input('type');
+            $assets = $request->input('assets');
+            $headline = $request->input('headline');
+            $overview = $request->input('overview');
+            $cft = $request->input('cft');
+
+            $story = Story::find($id);
+            if ($request->hasFile('thumbnail')) {
+                $story->thumbnail = $thumbnail;
+            }
+            $story->headline = $title;
+            $story->type = $type;
+            $story->url = $assets;
+            $story->sub_headline = $headline;
+            $story->overview = $overview;
+            $story->cft = $cft;
+            $story->save();
+            $code = 200;
+            $message = "Post save successfully";
+            return view('addPost')->with("code", $code)->with("message", $message);
+        } catch (Exception $e) {
+            $message = "Error while added this post please check if all details entered is corrent and date is unique.";
+            return view('addPost')->with("code", 400)->with("message", $message);
         }
-        $story->headline = $title;
-        $story->type = $type;
-        $story->url = $assets;
-        $story->sub_headline = $headline;
-        $story->overview = $overview;
-        $story->cft = $cft;
-        $story->save();
-        return redirect()->route('allpost');;
     }
 
     function editpost($id)
@@ -114,5 +124,28 @@ class adminController extends Controller
     {
         $users = Login::all();
         return view('user', compact('users'));
+    }
+
+    public function dashboard()
+    {
+        // last week created user---
+        $lastWeek = Carbon::now()->subDays(7);
+        $user = Login::whereDate('created_at', '>=', $lastWeek)->get();
+        $total_user = Login::count();
+
+
+        $post = Story::latest()->take(7)->get();
+        $total_post = Story::count();
+
+        // last week donation---
+        $donation = Donate::whereDate('created_at', '>=', $lastWeek)->get();
+
+        // number of donation----
+
+        $total_donation = Donate::count();
+
+        $total_rating = Rating::count();
+        $data = ["user7days" => $user,  "donation7days" => $donation, "total_donation" => $total_donation, "total_rating" => $total_rating];
+        return view("dashboard")->with("total_user", $total_user)->with("total_post", $total_post)->with("total_rating", $total_rating)->with("total_donation", $total_donation)->with("latest_post", $post);
     }
 }

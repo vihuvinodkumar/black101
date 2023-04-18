@@ -12,6 +12,14 @@ class RatingController extends Controller
     public function addRating(Request $request)
     {
         try {
+            $checkRating = Rating::select("*")->where("product_id", $request->product_id)->get();
+            if ($checkRating->count() > 0) {
+                return response()->json([
+                    "code" => 400,
+                    "message" => "You already liked this post.",
+
+                ])->setStatusCode(400);
+            }
             $result = Rating::create($request->all());
             if ($result) {
                 return response()->json([
@@ -26,7 +34,7 @@ class RatingController extends Controller
 
             ])
                 ->setStatusCode(400);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 "code" => 400,
                 "error" => $e
