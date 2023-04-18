@@ -9,6 +9,7 @@ use App\Models\Story;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class adminController extends Controller
 {
@@ -101,7 +102,17 @@ class adminController extends Controller
 
     function getAllPost()
     {
-        $posts = Story::all();
+        $posts = DB::select("SELECT 
+        story.*, 
+        IFNULL(AVG(rating.rating), 0) AS average_rating, 
+        IFNULL(COUNT(rating.rating), 0) AS total_rating_entries
+      FROM 
+        story
+        LEFT JOIN rating ON story.id = rating.product_id
+      GROUP BY 
+        story.id
+      ");
+        // $posts = Story::all();
         if ($posts) {
             return view('post', compact('posts'));
         } else {

@@ -23,22 +23,21 @@
         <div class="col-lg-10">
             <div class="container-fluid" style="margin-top:100px">
                 <table class="table">
-                    <tbody> 
+                    <tbody>
                         <tr>
-                            <th><strong>Id</strong></th>
                             <th><strong>Type</strong></th>
                             <th><strong>headline</strong></th>
                             <th><strong>Sub headline</strong></th>
                             <th><strong>overview</strong></th>
                             <th><strong>URL</strong></th>
                             <th><strong>publshed at</strong></th>
+                            <th><strong>Rating / Total Rating</strong></th>
                             <th><strong>Edit</strong></th>
                         </tr>
 
                         <tr>
                             @foreach ($posts as $post)
                         <tr>
-                            <td><a href="editpost/{{ $post->id }}">{{ $post->id }}</a></td>
                             @if($post->type=='V')
                             <td>Video</td>
                             @endif
@@ -54,6 +53,7 @@
                             <td style="min-width:150px;">{{ $post->overview }}</td>
                             <td><a href="{{ $post->url }}"><button class="cssbuttons-io-button"><span>View</span></button></a></td>
                             <td>{{ $post->publish_at }}</td>
+                            <td>{{ intval($post->average_rating) ."/". $post->total_rating_entries }}</td>
                             <td style="width:100px;"><a href="editpost/{{ $post->id }}">
                                     <button class="cta">
                                         <span>Edit</span>
