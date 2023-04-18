@@ -135,7 +135,7 @@ return [
 
     // set server key----
     'fcm' => [
-        'server_key' => 'AAAAdu8BYL4:APA91bGVUyicokihznHmR-eUJNJuyjAfvCzcgGZqoSRHJ-2HLAN1miwvvUnMqbBoW5RvzMB5DHIN-kgTwNmUdWrpGRlTY-TkMgC0yMmkzpRdPTbvGgnNmex4FJC-1dOcIvnW_EpdZ0aL',
+        'server_key' => 'AAAAjqvrJH4:APA91bEesVXM3hhI-AeUskbFSYjDFSX4OEak2QtsuKimhQqO51UG1IpqBCLWQ37MH2XKLeARiPvZk_tntDPhHzeuS-EMuIHp5LbFEfa6R-L1_dGJ6MDJQAzPGGBVboAkwqCUXMCCej4G',
     ],
 
     /**
