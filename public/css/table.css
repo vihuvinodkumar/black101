@@ -8,6 +8,7 @@ th {
     border: 1px solid #dddddd;
     text-align: center;
     font-size: 14px;
+    text-align: justify !important;
     /* padding: 6px 20px; */
 }
 tr th {
