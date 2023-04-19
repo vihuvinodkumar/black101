@@ -74,7 +74,8 @@ class LoginController extends Controller
                 ])
                     ->setStatusCode(400);
             }
-
+            
+            $request["device_token"] = Str::random(40);
             $useResult = Login::create($request->all());
             if ($useResult) {
                 return response()->json([

@@ -38,5 +38,5 @@ Route::post('/reset-password', [LoginController::class, 'resetPassword']);
 
 // send Notification-----
    
-Route::get('push_notification', [NotificationController::class, 'index']);
+Route::get('/push_notification', [NotificationController::class, 'index']);
 Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
