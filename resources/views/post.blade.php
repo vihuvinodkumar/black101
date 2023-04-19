@@ -16,64 +16,62 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Black 101</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/dashboard">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/user">user</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/allpost">post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/addPost">Add New Post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/black101/public/donation">donation</a>
-                </li>
-
-            </ul>
+    <div class="container-fluid d-flex row">
+        <div class="col-lg-2">
+            @include("sidebar/sidebar")
         </div>
-    </nav>
-    <div class="container-fluid" style="margin-top:100px">
-        <table>
-            <tbody>
-                <tr>
-                    <th><strong>Id</strong></th>
-                    <th><strong>Type</strong></th>
-                    <th><strong>headline</strong></th>
-                    <th><strong>Sub headline</strong></th>
-                    <th><strong>overview</strong></th>
-                    <th><strong>URL</strong></th>
-                    <th><strong>publshed at</strong></th>
-                    <th><strong>Edit</strong></th>
-                </tr>
+        <div class="col-lg-10">
+            <div class="container-fluid" style="margin-top:100px">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th><strong>Type</strong></th>
+                            <th><strong>headline</strong></th>
+                            <th><strong>Sub headline</strong></th>
+                            <th><strong>overview</strong></th>
+                            <th><strong>URL</strong></th>
+                            <th><strong>publshed at</strong></th>
+                            <th><strong>Rating / Total Rating</strong></th>
+                            <th><strong>Edit</strong></th>
+                        </tr>
 
-                <tr>
-                    @foreach ($posts as $post)
-                <tr>
-                    <td><a href="editpost/{{ $post->id }}">{{ $post->id }}</a></td>
-                    <td>{{ $post->type }}</td>
-                    <td>{{ $post->headline }}</td>
-                    <td>{{ $post->sub_headline }}</td>
-                    <td style="min-width:150px;">{{ $post->overview }}</td>
-                    <td><a href="{{ $post->url }}">Link</a></td>
-                    <td>{{ $post->publish_at }}</td>
-                    <td style="width:100px;"><a href="editpost/{{ $post->id }}">Edit</a></td>
-                </tr>
-                @endforeach
-                </tr>
+                        <tr>
+                            @foreach ($posts as $post)
+                        <tr>
+                            @if($post->type=='V')
+                            <td>Video</td>
+                            @endif
+                            @if($post->type=='I')
+                            <td>Image</td>
+                            @endif
+                            @if($post->type=='T')
+                            <td>Quote</td>
+                            @endif
+                            <!-- <td>{{ $post->type }}</td> -->
+                            <td>{{ $post->headline }}</td>
+                            <td>{{ $post->sub_headline }}</td>
+                            <td style="min-width:150px;">{{ $post->overview }}</td>
+                            <td><a href="{{ $post->url }}"><button class="cssbuttons-io-button"><span>View</span></button></a></td>
+                            <td>{{ $post->publish_at }}</td>
+                            <td>{{ intval($post->average_rating) ."/". $post->total_rating_entries }}</td>
+                            <td style="width:100px;"><a href="editpost/{{ $post->id }}">
+                                    <button class="cta">
+                                        <span>Edit</span>
+                                        <svg viewBox="0 0 13 10" height="10px" width="15px">
+                                            <path d="M1,5 L11,5"></path>
+                                            <polyline points="8 1 12 5 8 9"></polyline>
+                                        </svg>
+                                    </button>
+                                </a></td>
+                        </tr>
+                        @endforeach
+                        </tr>
 
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
 
+            </div>
+        </div>
 </body>
 
 </html>
