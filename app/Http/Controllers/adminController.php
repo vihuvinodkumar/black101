@@ -102,16 +102,14 @@ class adminController extends Controller
 
     function getAllPost()
     {
-        $posts = DB::select("SELECT 
-        story.*, 
-        IFNULL(AVG(rating.rating), 0) AS average_rating, 
-        IFNULL(COUNT(rating.rating), 0) AS total_rating_entries
-      FROM 
-        story
-        LEFT JOIN rating ON story.id = rating.product_id
-      GROUP BY 
-        story.id
-      ");
+        $posts = DB::select("SELECT story.*, 
+        IFNULL(AVG(rating.rating), 0) AS avg_rating, 
+        IFNULL(COUNT(rating.rating), 0) AS total_ratings, 
+        IFNULL(COUNT(likes.id), 0) AS total_likes
+    FROM story 
+    LEFT JOIN rating ON story.id = rating.product_id 
+    LEFT JOIN likes ON story.id = likes.post_id 
+    GROUP BY story.id");
         // $posts = Story::all();
         if ($posts) {
             return view('post', compact('posts'));
