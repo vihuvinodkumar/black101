@@ -3,6 +3,7 @@
 use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,8 @@ Route::put("savePostEdit/{id}", [adminController::class, "savePostEdit"])->name(
 Route::get('/verify-mail/{token}', [LoginController::class, 'verificationMail']);
 Route::get('/reset-password', [LoginController::class, 'resetPasswordLoad']);
 Route::post('/reset-password', [LoginController::class, 'resetPassword']);
+
+// send Notification-----
+   
+Route::get('push_notification', [NotificationController::class, 'index']);
+Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
