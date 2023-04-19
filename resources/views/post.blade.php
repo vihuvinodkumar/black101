@@ -29,9 +29,9 @@
                             <th><strong>headline</strong></th>
                             <th><strong>Sub headline</strong></th>
                             <th><strong>overview</strong></th>
-                            <th><strong>URL</strong></th>
                             <th><strong>publshed at</strong></th>
                             <th><strong>Rating / Total Rating</strong></th>
+                            <th><strong>Post Likes</strong></th>
                             <th><strong>Edit</strong></th>
                         </tr>
 
@@ -51,18 +51,14 @@
                             <td>{{ $post->headline }}</td>
                             <td>{{ $post->sub_headline }}</td>
                             <td style="min-width:150px;">{{ $post->overview }}</td>
-                            <td><a href="{{ $post->url }}"><button class="cssbuttons-io-button"><span>View</span></button></a></td>
                             <td>{{ $post->publish_at }}</td>
-                            <td>{{ intval($post->average_rating) ."/". $post->total_rating_entries }}</td>
-                            <td style="width:100px;"><a href="editpost/{{ $post->id }}">
-                                    <button class="cta">
-                                        <span>Edit</span>
-                                        <svg viewBox="0 0 13 10" height="10px" width="15px">
-                                            <path d="M1,5 L11,5"></path>
-                                            <polyline points="8 1 12 5 8 9"></polyline>
-                                        </svg>
-                                    </button>
-                                </a></td>
+                            <td>{{ intval($post->avg_rating) ."/". $post->total_ratings }}</td>
+                            <td>{{ $post->total_likes}}</td>
+                            <td><a href="editpost/{{ $post->id }}">
+                                    <button class="cssbuttons-io-button"><span>Edit</span></button>
+                                </a>
+                                <a href="{{ $post->url }}"><button class="cssbuttons-io-button"><span>View</span></button></a>
+                            </td>
                         </tr>
                         @endforeach
                         </tr>
