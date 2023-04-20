@@ -7,7 +7,7 @@ td,
 th {
     border: 1px solid #dddddd;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     text-align: justify !important;
     /* padding: 6px 20px; */
 }
@@ -17,6 +17,7 @@ tr th {
     padding: 6px 20px;
     background-color: #77619e;
     color: #fff;
+    font-size: 12px;
 }
 
 tr:hover {
