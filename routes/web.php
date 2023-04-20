@@ -4,6 +4,8 @@ use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +42,13 @@ Route::post('/reset-password', [LoginController::class, 'resetPassword']);
    
 Route::get('/push_notification', [NotificationController::class, 'index']);
 Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
+
+//for strope payment gateway-----
+  
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe', 'stripe');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
+
+// payment -----
+Route::get('/pay', [PaymentController::class, 'payWithStripe'])->name('pay');
