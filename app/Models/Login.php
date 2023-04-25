@@ -23,6 +23,7 @@ class Login extends Authenticatable implements JWTSubject
         "is_verified",  
         "remember_token",  
         "email_verified_at",  
+        "phone"
     ];
 
     public function getJWTIdentifier()
