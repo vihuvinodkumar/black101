@@ -39,7 +39,13 @@ class adminController extends Controller
             $story->thumbnail = $thumbnail;
             $story->headline = $title;
             $story->type = $type;
+
+            if($type == 'I'){
+            $story->url = $thumbnail;
+            }else{
             $story->url = $assets;
+            }
+
             $story->publish_at = $publishAt;
             $story->sub_headline = $headline;
             $story->overview = $overview;
@@ -76,7 +82,12 @@ class adminController extends Controller
             }
             $story->headline = $title;
             $story->type = $type;
-            $story->url = $assets;
+            
+            if($type == 'I'){
+                $story->url = $thumbnail;
+            }else{
+                $story->url = $assets;
+            }
             $story->sub_headline = $headline;
             $story->overview = $overview;
             $story->cft = $cft;
