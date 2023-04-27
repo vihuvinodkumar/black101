@@ -34,6 +34,8 @@ Route::get("editpost/{id}", [adminController::class, "editpost"])->name("editpos
 Route::get("allpost", [adminController::class, "getAllPost"])->name("allpost");
 Route::put("savePostEdit/{id}", [adminController::class, "savePostEdit"])->name("savePostEdit");
 
+Route::get('donate', [adminController::class, 'getDonate'])->name('donate.get');
+
 Route::get('/verify-mail/{token}', [LoginController::class, 'verificationMail']);
 Route::get('/reset-password', [LoginController::class, 'resetPasswordLoad']);
 Route::post('/reset-password', [LoginController::class, 'resetPassword']);

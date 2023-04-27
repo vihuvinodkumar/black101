@@ -168,4 +168,10 @@ class adminController extends Controller
         $data = ["user7days" => $user,  "donation7days" => $donation, "total_donation" => $total_donation, "total_rating" => $total_rating];
         return view("dashboard")->with("total_user", $total_user)->with("total_post", $total_post)->with("total_rating", $total_rating)->with("total_donation", $total_donation)->with("latest_post", $post);
     }
+
+    public function getDonate(Request $request)
+    {
+        $donates = Donate::all();
+        return view('donate', compact('donates'));
+    }
 }
