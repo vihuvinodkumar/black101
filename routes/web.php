@@ -3,6 +3,8 @@
 use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+    
+    use App\Http\Controllers\NotificationSendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +38,13 @@ Route::put("savePostEdit/{id}", [adminController::class, "savePostEdit"])->name(
 Route::get('/verify-mail/{token}', [LoginController::class, 'verificationMail']);
 Route::get('/reset-password', [LoginController::class, 'resetPasswordLoad']);
 Route::post('/reset-password', [LoginController::class, 'resetPassword']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::group(['middleware' => 'auth'],function(){
+    Route::post('/store-token', [NotificationSendController::class, 'updateDeviceToken'])->name('store.token');
+    Route::post('/send-web-notification', [NotificationSendController::class, 'sendNotification'])->name('send.web-notification');
+});
