@@ -10,6 +10,7 @@ use App\Http\Controllers\PostDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SmsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,3 +77,7 @@ Route::get('getAllViewedNotification', [NotificationController::class, 'getAllVi
 Route::get('getAllNotViewedNotification', [NotificationController::class, 'getAllNotViewedNotification']);
 Route::get('getNotificationByUserID', [NotificationController::class, 'getNotificationByUserID']);
 Route::delete('deleteNotification/{id}', [NotificationController::class, 'deleteNotification']);
+
+
+// send sms using twillio----
+Route::post('/send-sms', [SmsController::class, 'sendSms']);
