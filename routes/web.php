@@ -54,3 +54,13 @@ Route::controller(StripePaymentController::class)->group(function(){
 
 // payment -----
 Route::get('/pay', [PaymentController::class, 'payWithStripe'])->name('pay');
+
+// stripe payment---
+
+Route::post('/create-checkout-session', [\App\Http\Controllers\CheckoutController::class, 'createSession']);
+Route::get('/success', function () {
+    return view('success');
+});
+Route::get('/cancel', function () {
+    return view('cancel');
+});
