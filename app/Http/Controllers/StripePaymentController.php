@@ -29,16 +29,17 @@ public function stripePost(Request $request)
     Stripe\Stripe::setApiKey('sk_test_51MyqNkSIrVUMjLi4llXBuKnp2qbiAzZNwbc5NV4rr7p1YEXi4Nwekwj7fy3l02k6ZTiv53tI2A07nVDBbRk4ZVVF00ZnSZ9kvU');
     $customer = Stripe\Customer::create(array(
             "address" => [
-                "line1" => "Virani Chowk",
-                "postal_code" => "390008",
-                "city" => "Vadodara",
-                "state" => "GJ",
-                "country" => "IN",
+                "line1" => "123 Main St",
+                "postal_code" => "94111",
+                "city" => "San Francisco",
+                "state" => "CA",
+                "country" => "US",
             ],
             "email" => "demo@gmail.com",
             "name" => "Nitin Pujari",
             "source" => $request->stripeToken
         ));
+
     Stripe\Charge::create ([
             "amount" => 100 * 100,
             "currency" => "usd",
