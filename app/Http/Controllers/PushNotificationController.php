@@ -7,6 +7,8 @@ use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 use Kreait\Firebase\ServiceAccount;
+use Kreait\Firebase\Messaging\Notification;
+
 
 
 
@@ -34,7 +36,7 @@ class PushNotificationController extends Controller
         $messaging = $factory->createMessaging();
 
         $message = CloudMessage::withTarget('token', 'your_device_token')
-                            ->withNotification(['title' => 'Hello', 'body' => 'World']);
+                            ->withNotification(Notification::create('Hello', 'World'));
 
         $response = Firebase::send($message);
 

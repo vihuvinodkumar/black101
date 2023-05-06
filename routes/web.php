@@ -3,6 +3,9 @@
 use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +34,23 @@ Route::get("editpost/{id}", [adminController::class, "editpost"])->name("editpos
 Route::get("allpost", [adminController::class, "getAllPost"])->name("allpost");
 Route::put("savePostEdit/{id}", [adminController::class, "savePostEdit"])->name("savePostEdit");
 
+Route::get('donate', [adminController::class, 'getDonate'])->name('donate.get');
+
 Route::get('/verify-mail/{token}', [LoginController::class, 'verificationMail']);
 Route::get('/reset-password', [LoginController::class, 'resetPasswordLoad']);
 Route::post('/reset-password', [LoginController::class, 'resetPassword']);
+
+// send Notification-----
+   
+Route::get('/push_notification', [NotificationController::class, 'index']);
+Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
+
+//for strope payment gateway-----
+  
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe', 'stripe');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
+
+// payment -----
+Route::get('/pay', [PaymentController::class, 'payWithStripe'])->name('pay');

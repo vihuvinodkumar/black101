@@ -9,11 +9,13 @@
         "firebase/php-jwt": "^6.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "kreait/firebase-php": "^5.9",
-        "kreait/laravel-firebase": "^2.4",
+        "kreait/firebase-php": "^5.26",
+        "kreait/laravel-firebase": "*",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "stripe/stripe-php": "^10.12",
+        "twilio/sdk": "^7.3",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

@@ -39,7 +39,13 @@ class adminController extends Controller
             $story->thumbnail = $thumbnail;
             $story->headline = $title;
             $story->type = $type;
+
+            if($type == 'I'){
+            $story->url = $thumbnail;
+            }else{
             $story->url = $assets;
+            }
+
             $story->publish_at = $publishAt;
             $story->sub_headline = $headline;
             $story->overview = $overview;
@@ -76,7 +82,12 @@ class adminController extends Controller
             }
             $story->headline = $title;
             $story->type = $type;
-            $story->url = $assets;
+            
+            if($type == 'I'){
+                $story->url = $thumbnail;
+            }else{
+                $story->url = $assets;
+            }
             $story->sub_headline = $headline;
             $story->overview = $overview;
             $story->cft = $cft;
@@ -156,5 +167,11 @@ class adminController extends Controller
         $total_rating = Rating::count();
         $data = ["user7days" => $user,  "donation7days" => $donation, "total_donation" => $total_donation, "total_rating" => $total_rating];
         return view("dashboard")->with("total_user", $total_user)->with("total_post", $total_post)->with("total_rating", $total_rating)->with("total_donation", $total_donation)->with("latest_post", $post);
+    }
+
+    public function getDonate(Request $request)
+    {
+        $donates = Donate::all();
+        return view('donate', compact('donates'));
     }
 }

@@ -9,6 +9,8 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\PostDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PushNotificationController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SmsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,3 +71,13 @@ Route::get('getDashboard', [DashboardController::class, 'getDashboard']);
 // push notification-----
 Route::post('pushNotification', [PushNotificationController::class, 'pushNotification']);
 
+//notification api's-----
+Route::post('saveNotification', [NotificationController::class, 'saveNotification']);
+Route::get('getAllViewedNotification', [NotificationController::class, 'getAllViewedNotification']);
+Route::get('getAllNotViewedNotification', [NotificationController::class, 'getAllNotViewedNotification']);
+Route::get('getNotificationByUserID', [NotificationController::class, 'getNotificationByUserID']);
+Route::delete('deleteNotification/{id}', [NotificationController::class, 'deleteNotification']);
+
+
+// send sms using twillio----
+Route::post('/send-sms', [SmsController::class, 'sendSms']);
