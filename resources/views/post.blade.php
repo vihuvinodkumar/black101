@@ -55,9 +55,9 @@
                             <td>{{ intval($post->avg_rating) ."/". $post->total_ratings }}</td>
                             <td>{{ $post->total_likes}}</td>
                             <td><a href="editpost/{{ $post->id }}">
-                                    <button class="cssbuttons-io-button"><span>Edit</span></button>
+                                    Edit
                                 </a>
-                                <a href="{{ $post->url }}"><button class="cssbuttons-io-button"><span>View</span></button></a>
+                                <a href="{{ $post->url }}"><span>View</span></a>
                             </td>
                         </tr>
                         @endforeach
