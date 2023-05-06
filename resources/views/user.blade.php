@@ -16,14 +16,14 @@
 </head>
 
 <body>
-    <div class="container-fluid d-flex row">
 
-        <div class="col-lg-2">
+    <div class="container-fluid d-flex row">
+        <div class="col-lg-3 ">
             @include("sidebar/sidebar")
         </div>
-        <div class="col-lg-10">
-            <div class="container-fluid m-4">
-                <table class="table table-hover">
+        <div class="col-lg-9 ">
+            <div class="container d-flex row mx-auto">
+                <table class="table table-hover table-responsive">
                     <tbody>
                         <tr>
                             <th><strong>Id</strong></th>
@@ -58,6 +58,7 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
 
     </div>
