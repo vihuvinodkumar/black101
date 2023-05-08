@@ -16,6 +16,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <div class="container-fluid">
         <div class="row">
 
@@ -26,6 +27,16 @@
             <div class="table-responsive" style="overflow-x: scroll;">
             <div class="container-fluid m-4">
                 <table class="table table-hover">
+=======
+
+    <div class="container-fluid d-flex row">
+        <div class="col-lg-3 ">
+            @include("sidebar/sidebar")
+        </div>
+        <div class="col-lg-9 ">
+            <div class="container d-flex row mx-auto">
+                <table class="table table-hover table-responsive">
+>>>>>>> 08ee69be0d118c20085ad975b5ba8379062373b0
                     <tbody>
                         <tr>
                             <th><strong>Id</strong></th>
@@ -60,7 +71,11 @@
                     </tbody>
                 </table>
             </div>
+<<<<<<< HEAD
           </div>
+=======
+
+>>>>>>> 08ee69be0d118c20085ad975b5ba8379062373b0
         </div>
 
     </div>
