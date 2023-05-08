@@ -21,13 +21,13 @@
 </head>
 
 <body>
-    <div class="container-fluid d-flex p-5">
+    <div class="container-fluid">
 
-        <div class="col-lg-2">
+        <div class="col-lg-12">
             @include("/sidebar/sidebar")
 
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-12 my-5">
 
             <div class="row w-row">
                 <div class="basic-column w-col w-col-3">
