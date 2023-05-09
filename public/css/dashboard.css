@@ -15,7 +15,7 @@
 
 /* Change background color of toggler when menu is open */
 .navbar-toggler:not(.collapsed) {
-    background-color: #222;
+    background-color: #fff;
 }
 
 .left {

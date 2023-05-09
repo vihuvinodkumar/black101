@@ -47,9 +47,9 @@
                             <td>{{ \Carbon\Carbon::parse($user->created_at)->format('h:i / d-m-y ') }}</td>
                             <td>
                                 @if($user->is_verified==1)
-                                <img src="{{ asset('verify.png') }}" />
+                                <span class="text-success text-center">Verified</span>
                                 @else
-                                <img src="{{ asset('unverify.png') }}" />
+                                <span class="text-secondary text-center">Unerified</span>
                                 @endif
                             </td>
 

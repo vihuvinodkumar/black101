@@ -99,7 +99,7 @@
                     <div class="card__content">
                         <p class="card__title">{{$item->headline}}</p>
                         <p class="card__text">{{$item->sub_headline}}</p>
-                        <a class="card__button" href="">Read More</a>
+                        <a class="card__button" href="{{ url('/posts/'.$item->id) }}">Read More</a>
                     </div>
                 </div>
 

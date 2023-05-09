@@ -54,3 +54,9 @@ Route::controller(StripePaymentController::class)->group(function(){
 
 // payment -----
 Route::get('/pay', [PaymentController::class, 'payWithStripe'])->name('pay');
+
+//more detail for all posts
+Route::get('/posts/{id}', function ($id) {
+    $viewdetailpost = \App\Models\Story::find($id);
+    return \view('viewdetailpost',['post'=>$viewdetailpost], \compact('viewdetailpost'));
+});
