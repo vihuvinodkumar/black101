@@ -60,11 +60,7 @@
                     </tbody>
                 </table>
             </div>
-<<<<<<< HEAD
           </div>
-=======
-
->>>>>>> 08ee69be0d118c20085ad975b5ba8379062373b0
         </div>
 
     </div>
