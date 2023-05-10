@@ -16,7 +16,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin-top: 80px;
+            /* margin-top: 80px; */
         }
 
         form {
@@ -91,27 +91,64 @@
             font-size: 10px;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            // Handle dropdown change event
+            $('#type').on('change', function() {
+                var selectedOption = $(this).val();
+
+                if (selectedOption == "I") {
+                    $(".assetsSection").hide();
+                    $('.assetsSection').removeAttr('required');
+                    $('.thumbnailSection').attr('required', 'required');
+                    $(".thumbnailSection").show();
+
+                }
+                if (selectedOption == "T") {
+                    $(".thumbnailSection").hide();
+                    $(".assetsSection").show();
+                    $('.thumbnailSection').removeAttr('required');
+                    $('.assetsSection').attr('required', 'required');
+                }
+                if (selectedOption == "V") {
+                    $(".thumbnailSection").show();
+                    $(".assetsSection").show();
+                    // $('.thumbnailSection').removeAttr('required');
+                    $('.thumbnailSection').attr('required', 'required');
+                    $('.assetsSection').attr('required', 'required');
+                }
+
+                // // Hide all form fields
+                // $('#option1Fields, #option2Fields, #option3Fields').hide();
+
+                // // Show the relevant form fields based on the selected option
+                // $('#' + selectedOption + 'Fields').show();
+            });
+        });
+    </script>
 </head>
 
 <body>
     <div class="container-fluid row d-flex">
-        <div class="col-lg-2">
+
+
+        <div class="col-lg-12">
             @include("sidebar/sidebar")
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-12">
             @if(isset($code))
             @if($code == 200)
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" style="margin-top:100px" role="alert">
                 @else
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger" style="margin-top:100px" role="alert">
                     @endif
                     {{$message}}
                 </div>
                 @endif
-
-                <div class="container-fluid" style="margin-top:50px">
+                <div class="container-fluid" style="margin-top:100px">
 
                     <div class="body">
+
                         @if(isset($story))
                         <form action="{{ route('savePostEdit',$story->id) }}" method="POST" enctype="multipart/form-data">
                             @method('PUT')
@@ -120,6 +157,22 @@
                                 @endif
                                 @csrf
                                 <div class="form-group row">
+                                    <label for="type" class="col-sm-4 col-form-label">Type</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" required name="type" id="type">
+                                            @if(isset($story))
+                                            <option value="V" {{ $story->type=="V"?"selected":"" }}>Video</option>
+                                            <option value="I" {{ $story->type=="I"?"selected":"" }}>Image</option>
+                                            <option value="T" {{ $story->type=="T"?"selected":"" }}>Quote</option>
+                                            @else
+                                            <option value="V">Video</option>
+                                            <option value="I">Image</option>
+                                            <option value="T">Quote</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row thumbnailSection">
                                     <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
                                     <div class="col-sm-8">
                                         @if(isset($story->thumbnail))
@@ -142,23 +195,8 @@
                                         <input type="text" class="form-control" value="{{ isset($story) ? $story->sub_headline :'' }}" required name="headline" id="headline">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="type" class="col-sm-4 col-form-label">Type</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" required name="type" id="type">
-                                            @if(isset($story))
-                                            <option value="V" {{ $story->type=="V"?"selected":"" }}>Video</option>
-                                            <option value="I" {{ $story->type=="I"?"selected":"" }}>Image</option>
-                                            <option value="T" {{ $story->type=="T"?"selected":"" }}>Quote</option>
-                                            @else
-                                            <option value="V">Video</option>
-                                            <option value="I">Image</option>
-                                            <option value="T">Quote</option>
-                                            @endif
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
+
+                                <div class="form-group row assetsSection">
                                     <label for="assets" class="col-sm-4 col-form-label">Assets<label class="label-small">Enter URL for video and image or your Quote Text</label></label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" value="{{ isset($story) ? $story->url:''}}" required name="assets" id="assets">

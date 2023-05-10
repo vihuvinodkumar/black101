@@ -19,51 +19,51 @@
     <div class="container-fluid">
         <div class="row">
 
-        <div class="col-lg-12">
-            @include("sidebar/sidebar")
-        </div>
-        <div class="col-lg-12">
-            <div class="table-responsive" style="overflow-x: scroll;">
-            <div class="container-fluid m-4">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th><strong>Id</strong></th>
-                            <th><strong>Photo</strong></th>
-                            <th><strong>Name</strong></th>
-                            <th><strong>Email</strong></th>
-                            <th><strong>Created At</strong></th>
-                            <th><strong>Verified</strong></th>
-                        </tr>
-
-                        <tr>
-                            @foreach ($users as $user)
-                        <tr>
-
-                            <td>{{ $user->id }}</td>
-                            <td><img src="{{ 'http://100.25.19.89/black101/public/storage/'.str_replace('public', '', $user->profile_photo) }}" style="height:50px;width:50px;" /></td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ \Carbon\Carbon::parse($user->created_at)->format('h:i / d-m-y ') }}</td>
-                            <td>
-                                @if($user->is_verified==1)
-                                <span class="text-success text-center">Verified</span>
-                                @else
-                                <span class="text-secondary text-center">Unerified</span>
-                                @endif
-                            </td>
-
-                        </tr>
-                        @endforeach
-                        </tr>
-
-                    </tbody>
-                </table>
+            <div class="col-lg-12">
+                @include("sidebar/sidebar")
             </div>
-          </div>
-        </div>
+            <div class="col-lg-12 container d-flex row">
+                <div class="table-responsive" style="overflow-x: scroll;">
+                    <div class="container-fluid m-4">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th><strong>Id</strong></th>
+                                    <th><strong>Photo</strong></th>
+                                    <th><strong>Name</strong></th>
+                                    <th><strong>Email</strong></th>
+                                    <th><strong>Created At</strong></th>
+                                    <th><strong>Verified</strong></th>
+                                </tr>
 
-    </div>
+                                <tr>
+                                    @foreach ($users as $user)
+                                <tr>
+
+                                    <td>{{ $user->id }}</td>
+                                    <td><img src="{{ 'http://100.25.19.89/black101/public/storage/'.str_replace('public', '', $user->profile_photo) }}" style="height:50px;width:50px;" /></td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($user->created_at)->format('h:i / d-m-y ') }}</td>
+                                    <td>
+                                        @if($user->is_verified==1)
+                                        <span class="text-success text-center">Verified</span>
+                                        @else
+                                        <span class="text-secondary text-center">Unerified</span>
+                                        @endif
+                                    </td>
+
+                                </tr>
+                                @endforeach
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
 
 </body>
