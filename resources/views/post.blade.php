@@ -67,7 +67,7 @@
                             <td class="time">{{ $post->publish_at }}</td>
                             <td>{{ intval($post->avg_rating) ."/". $post->total_ratings }}</td>
                             <td>{{ $post->total_likes}}</td>
-                            <td style="min-width:100px;" class="justify-content-spacebetween"><a href="editpost/{{ $post->id }}">
+                            <td style="min-width:100px;" class="justify-content-spacebetween"><a href="/black101/public/editpost/{{ $post->id }}">
                                     <svg fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -77,7 +77,7 @@
                                     </svg>
 
                                 </a>
-                                <a href="/posts/{{ $post->id }}" style="margin-left:20px;">
+                                <a href="/black101/public/posts/{{ $post->id }}" style="margin-left:20px;">
                                     <svg fill="#141667" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#141667">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

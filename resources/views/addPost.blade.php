@@ -147,7 +147,7 @@
                 @endif
                 <div class="container-fluid" style="margin-top:100px">
 
-                    <div class="body">
+                    <div class="body" style="overflow-x: scroll;">
 
                         @if(isset($story))
                         <form action="{{ route('savePostEdit',$story->id) }}" method="POST" enctype="multipart/form-data">

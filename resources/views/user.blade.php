@@ -24,7 +24,7 @@
             </div>
             <div class="col-lg-12 container d-flex row">
                 <div class="table-responsive" style="overflow-x: scroll;">
-                    <div class="container-fluid m-4">
+                    <div class="container-fluid m-4" style="margin-top: 100px;">
                         <table class="table table-hover">
                             <tbody>
                                 <tr>

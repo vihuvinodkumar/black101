@@ -47,7 +47,7 @@
                         <a class="nav-link" href="/black101/public/addPost">Add Post</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/black101/public/donation">Donation</a>
+                        <a class="nav-link" href="/black101/public/donate">Donation</a>
                     </li>
                 </ul>
             </div>
