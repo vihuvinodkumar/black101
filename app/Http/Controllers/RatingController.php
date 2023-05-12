@@ -12,7 +12,7 @@ class RatingController extends Controller
     public function addRating(Request $request)
     {
         try {
-            $checkRating = Rating::select("*")->where("product_id", $request->product_id)->get();
+            $checkRating = Rating::select("*")->where("product_id", $request->product_id)->where("user_id", $request->user_id)->get();
             if ($checkRating->count() > 0) {
                 return response()->json([
                     "code" => 400,
