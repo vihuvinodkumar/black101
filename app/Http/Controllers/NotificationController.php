@@ -46,7 +46,11 @@ class NotificationController extends Controller
                  
         $response = curl_exec($ch);
     
-        return back()->with('success', 'Notification send successfully.');
+        // return back()->with('success', 'Notification send successfully.');
+        return response()->json([
+            "code"=>200,
+            "success"=>"Notification send successfully."
+        ]);
     }
 
     public function saveNotification(Request $request)

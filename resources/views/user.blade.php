@@ -49,7 +49,7 @@
                                 @if($user->is_verified==1)
                                 <span class="text-success text-center">Verified</span>
                                 @else
-                                <span class="text-secondary text-center">Unerified</span>
+                                <span class="text-secondary text-center">Unverified</span>
                                 @endif
                             </td>
 

@@ -15,10 +15,12 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SendDailyPushNotification::class,
+        \App\Console\Commands\Push_notification::class,
     ];
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('notification:push-daily')->dailyAt('9:00')->timezone('America/New_York');
+        $schedule->command('notification:push_notification')->daily();
     }
 
     /**
