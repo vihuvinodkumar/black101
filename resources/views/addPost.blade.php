@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/table.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -16,7 +17,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin-top: 80px;
+            /* margin-top: 80px; */
         }
 
         form {
@@ -90,28 +91,93 @@
             color: #c4c4c4;
             font-size: 10px;
         }
+
+        /* Styles for small devices */
+        @media screen and (max-width: 576px) {
+        form{
+            margin-top:25rem;
+            border-radius: 0;
+        }
+        input[type="submit"] {
+            font-size: 14px;
+        }
+        }
+
+        /* Styles for medium devices */
+        @media screen and (min-width: 576px) and (max-width: 768px) {
+        form{
+            max-width: 500px;
+        }
+        input[type="submit"] {
+            font-size: 16px;
+        }
+        }
+
+        /* Styles for large devices */
+        @media screen and (min-width: 768px) {
+        .form-container {
+            max-width: 800px;
+        }
+        }
     </style>
+    <script>
+        $(document).ready(function() {
+            // Handle dropdown change event
+            $('#type').on('change', function() {
+                var selectedOption = $(this).val();
+
+                if (selectedOption == "I") {
+                    $(".assetsSection").hide();
+                    $('.assetsSection').removeAttr('required');
+                    $('.thumbnailSection').attr('required', 'required');
+                    $(".thumbnailSection").show();
+
+                }
+                if (selectedOption == "T") {
+                    $(".thumbnailSection").hide();
+                    $(".assetsSection").show();
+                    $('.thumbnailSection').removeAttr('required');
+                    $('.assetsSection').attr('required', 'required');
+                }
+                if (selectedOption == "V") {
+                    $(".thumbnailSection").show();
+                    $(".assetsSection").show();
+                    // $('.thumbnailSection').removeAttr('required');
+                    $('.thumbnailSection').attr('required', 'required');
+                    $('.assetsSection').attr('required', 'required');
+                }
+
+                // // Hide all form fields
+                // $('#option1Fields, #option2Fields, #option3Fields').hide();
+
+                // // Show the relevant form fields based on the selected option
+                // $('#' + selectedOption + 'Fields').show();
+            });
+        });
+    </script>
 </head>
 
 <body>
     <div class="container-fluid row d-flex">
-        <div class="col-lg-2">
+
+
+        <div class="col-lg-12">
             @include("sidebar/sidebar")
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-12">
             @if(isset($code))
             @if($code == 200)
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" style="margin-top:100px" role="alert">
                 @else
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger" style="margin-top:100px" role="alert">
                     @endif
                     {{$message}}
                 </div>
                 @endif
+                <div class="container-fluid" style="margin-top:100px">
 
-                <div class="container-fluid" style="margin-top:50px">
+                    <div class="body" style="overflow-x: scroll;">
 
-                    <div class="body">
                         @if(isset($story))
                         <form action="{{ route('savePostEdit',$story->id) }}" method="POST" enctype="multipart/form-data">
                             @method('PUT')
@@ -120,6 +186,22 @@
                                 @endif
                                 @csrf
                                 <div class="form-group row">
+                                    <label for="type" class="col-sm-4 col-form-label">Type</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" required name="type" id="type">
+                                            @if(isset($story))
+                                            <option value="V" {{ $story->type=="V"?"selected":"" }}>Video</option>
+                                            <option value="I" {{ $story->type=="I"?"selected":"" }}>Image</option>
+                                            <option value="T" {{ $story->type=="T"?"selected":"" }}>Quote</option>
+                                            @else
+                                            <option value="V">Video</option>
+                                            <option value="I">Image</option>
+                                            <option value="T">Quote</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row thumbnailSection">
                                     <label for="thumbnail" class="col-sm-4 col-form-label">Thumbnail</label>
                                     <div class="col-sm-8">
                                         @if(isset($story->thumbnail))
@@ -142,23 +224,8 @@
                                         <input type="text" class="form-control" value="{{ isset($story) ? $story->sub_headline :'' }}" required name="headline" id="headline">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="type" class="col-sm-4 col-form-label">Type</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" required name="type" id="type">
-                                            @if(isset($story))
-                                            <option value="V" {{ $story->type=="V"?"selected":"" }}>Video</option>
-                                            <option value="I" {{ $story->type=="I"?"selected":"" }}>Image</option>
-                                            <option value="T" {{ $story->type=="T"?"selected":"" }}>Quote</option>
-                                            @else
-                                            <option value="V">Video</option>
-                                            <option value="I">Image</option>
-                                            <option value="T">Quote</option>
-                                            @endif
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
+
+                                <div class="form-group row assetsSection">
                                     <label for="assets" class="col-sm-4 col-form-label">Assets<label class="label-small">Enter URL for video and image or your Quote Text</label></label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" value="{{ isset($story) ? $story->url:''}}" required name="assets" id="assets">

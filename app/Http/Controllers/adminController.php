@@ -40,10 +40,10 @@ class adminController extends Controller
             $story->headline = $title;
             $story->type = $type;
 
-            if($type == 'I'){
-            $story->url = $thumbnail;
-            }else{
-            $story->url = $assets;
+            if ($type == 'I') {
+                $story->url = $thumbnail;
+            } else {
+                $story->url = $assets;
             }
 
             $story->publish_at = $publishAt;
@@ -82,10 +82,10 @@ class adminController extends Controller
             }
             $story->headline = $title;
             $story->type = $type;
-            
-            if($type == 'I'){
+
+            if ($type == 'I') {
                 $story->url = $thumbnail;
-            }else{
+            } else {
                 $story->url = $assets;
             }
             $story->sub_headline = $headline;
@@ -105,7 +105,9 @@ class adminController extends Controller
     {
         $story = Story::find($id);
         if ($story) {
-            return view('addPost', compact('story'));
+            $code = 200;
+            $message = "testing for message";
+            return view('addPost', compact('story', "code", "message"));
         } else {
             return view("404");
         }
