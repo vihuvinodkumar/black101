@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('notification:push-daily')->dailyAt('9:00')->timezone('America/New_York');
-        $schedule->command('notification:push_notification')->daily();
+        $schedule->command('notification:push_notification')->everyMinute();
     }
 
     /**

@@ -60,50 +60,54 @@ class LoginController extends Controller
 
 
     public function saveUser(Request $request)
-    {
-        try {
-            // $request->validate([
-            //     "name"=>"required",
-            //     "email" => "required|regex:/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/",
-            //     "password" => "required"
-            // ]);
+{
+    try {
+        // $request->validate([
+        //     "name"=>"required",
+        //     "email" => "required|regex:/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/",
+        //     "password" => "required"
+        // ]);
 
-            $check_user = Login::select(["*"])->where("email", $request->email)->get();
-            if (count($check_user) > 0) {
+        $check_user = Login::select(["*"])->where("email", $request->email)->get();
+        if (count($check_user) > 0) {
 
-                return response()->json([
-                    "message" => "user already exist with this details",
-                    "user_details" => $check_user,
-                    "payload" => $request->all(),
-                    "code" => 400
-                ])
-                    ->setStatusCode(400);
-            }
-            
-            $request["device_token"] = Str::random(40);
-            $useResult = Login::create($request->all());
-            if ($useResult) {
-                return response()->json([
-                    "message" => "user created, now you can login",
-                    "code" => 200,
-                    "userDetails" => $useResult
-                ]);
-            } else {
-                return response()->json([
-                    "message" => "unable to create user",
-                    "code" => 200
-                ])
-                    ->setStatusCode(400);
-            }
-        } catch (Exception $e) {
             return response()->json([
-                "message" => "user insertion fail check payload",
-                "code" => 400,
-                "error_message" => $e
+                "message" => "user already exists with this details",
+                "user_details" => $check_user,
+                "payload" => $request->all(),
+                "code" => 400
             ])
-                ->setStatusCode(400);
+            ->setStatusCode(400);
         }
+       
+        // Set default profile photo path if not provided in the request
+        if(!$request->has('profile_photo')) {
+            $request['profile_photo'] = "public/tasks/document/p2RLVeRHpGvXk5clSPPg2uxhJoFbJdWp3trGPesf.jpg";
+        }
+
+        $userResult = Login::create($request->all());
+        if ($userResult) {
+            return response()->json([
+                "message" => "user created, now you can login",
+                "code" => 200,
+                "userDetails" => $userResult
+            ]);
+        } else {
+            return response()->json([
+                "message" => "unable to create user",
+                "code" => 200
+            ])
+            ->setStatusCode(400);
+        }
+    } catch (Exception $e) {
+        return response()->json([
+            "message" => "user insertion failed. Check payload.",
+            "code" => 400,
+            "error_message" => $e
+        ])
+        ->setStatusCode(400);
     }
+}
 
     public function updateUser(Request $request)
     {

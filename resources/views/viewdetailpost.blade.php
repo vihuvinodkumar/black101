@@ -8,11 +8,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <title>Document</title>
 </head>
+<script>
+    $(document).ready(function() {
+        $('#post p:nth-child(4)').each(function() {
+            var originalDate = $(this).text(); // Get the original date
+
+            // Convert the date to the desired format (e.g., DD/MM/YYYY)
+            var formattedDate = moment(originalDate).format('DD/MM/YYYY');
+
+            $(this).text(formattedDate); // Update the cell content with the formatted date
+        });
+    })
+</script>
 <body>
     <div class="container">
-        <div class="post">
+        <div class="post" id="post">
             <div class="post__image">
                 <img src="{{ 'http://100.25.19.89/black101/public/storage'.str_replace('public', '', $post->thumbnail ?: '') }}" />
             </div>

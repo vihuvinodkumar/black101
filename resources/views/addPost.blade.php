@@ -208,7 +208,7 @@
                                         <img src="{{ 'http://100.25.19.89/black101/public/storage'.str_replace('public', '', $story->thumbnail?:'') }}" style="height:100px;width:100px;" />
                                         <input type="file" class="form-control-file" {{ $story->thumbnail ?: "required" }} name="thumbnail" id="thumbnail">
                                         @else
-                                        <input type="file" class="form-control-file" required name="thumbnail" id="thumbnail">
+                                        <input type="file" class="form-control-file thumbnailSection" required name="thumbnail" id="thumbnail">
                                         @endif
                                     </div>
                                 </div>
@@ -228,7 +228,7 @@
                                 <div class="form-group row assetsSection">
                                     <label for="assets" class="col-sm-4 col-form-label">Assets<label class="label-small">Enter URL for video and image or your Quote Text</label></label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" value="{{ isset($story) ? $story->url:''}}" required name="assets" id="assets">
+                                        <input type="text" class="form-control assetsSection" value="{{ isset($story) ? $story->url:''}}" required name="assets" id="assets">
                                     </div>
                                 </div>
 
