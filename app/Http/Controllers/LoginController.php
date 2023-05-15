@@ -37,7 +37,7 @@ class LoginController extends Controller
 //                 $fmcToken->device_token = $request->device_token;
 //                 $fmcToken->update();;
                 $userDetails->device_token=$request->device_token;
-                $userDetails->update();
+                $userDetails->save();
                 
                 return response()->json([
                     "message" => "login successfully",
