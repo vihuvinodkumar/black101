@@ -160,6 +160,8 @@ class NotificationController extends Controller
         $auth = $this->decryptt($request->header("Authorization"));
         $auth_id = $auth[0]["id"];
 
+        if($auth_id){
+
         $notification = Notification::select(["*"])->where('user_id', $auth_id)->get();
         if(count($notification) > 0 )
         {
@@ -170,10 +172,16 @@ class NotificationController extends Controller
             ]);
         }
         return response()->json([
-            'code' => 400,
-            'message' => 'not found'
+            'code' => 200,
+            "data" => $notification
+        ]);
+
+        }
+        return response()->json([
+            "code"=>400,
+            "message"=> "Incorrect token !"
         ])
-        ->getStatusCode(400);
+        ->setStatusCode(400);
 
     }
 
