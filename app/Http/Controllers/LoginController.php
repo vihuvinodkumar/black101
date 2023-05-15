@@ -28,7 +28,7 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        $userDetails = Login::select(["*"])->where("email", $request->email)->get();
+        $userDetails = Login::select(["*"])->where("email", $request->email)->where("is_verified", 1)->get();
         if (count($userDetails) > 0) {
             if ($request->password === $userDetails[0]->password) {
                 $payload = JWTFactory::sub($userDetails[0]->id)->myCustomObject($userDetails)->make();
@@ -54,7 +54,7 @@ class LoginController extends Controller
             }
         }
         return response()->json([
-            "message" => "user not found",
+            "message" => "We didnt find any verified user this given details",
             "code" => 400
         ])
             ->setStatusCode(400);
