@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Donate;
 use Illuminate\Http\Request;
 use App\Models\Login;
+use App\Models\Notification;
 use App\Models\PasswordReset;
 use Exception;
 use GuzzleHttp\Psr7\Message;
@@ -59,9 +60,33 @@ class LoginController extends Controller
             ->setStatusCode(400);
     }
 
+    public function userLogout(Request $request)
+    {
+    // Retrieve the authenticated user
+    $user = auth()->user();
+
+    if ($user) {
+        // Clear the device token
+        $user->device_token = null;
+        $user->save();
+
+        // Perform logout
+        auth()->logout();
+
+        return response()->json([
+            "message" => "Logout successful",
+            "code" => 200
+        ]);
+    }
+
+    return response()->json([
+        "message" => "User not found",
+        "code" => 400
+    ])->setStatusCode(400);
+    }
 
     public function saveUser(Request $request)
-{
+      {
     try {
         // $request->validate([
         //     "name"=>"required",
@@ -80,35 +105,35 @@ class LoginController extends Controller
             ])
             ->setStatusCode(400);
         }
-       
-        // Set default profile photo path if not provided in the request
-        if(!$request->has('profile_photo')) {
-            $request['profile_photo'] = "public/tasks/document/p2RLVeRHpGvXk5clSPPg2uxhJoFbJdWp3trGPesf.jpg";
-        }
+        
+            // Set default profile photo path if not provided in the request
+            if(!$request->has('profile_photo')) {
+                $request['profile_photo'] = "public/tasks/document/p2RLVeRHpGvXk5clSPPg2uxhJoFbJdWp3trGPesf.jpg";
+            }
 
-        $userResult = Login::create($request->all());
-        if ($userResult) {
+            $userResult = Login::create($request->all());
+            if ($userResult) {
+                return response()->json([
+                    "message" => "user created, now you can login",
+                    "code" => 200,
+                    "userDetails" => $userResult
+                ]);
+            } else {
+                return response()->json([
+                    "message" => "unable to create user",
+                    "code" => 200
+                ])
+                ->setStatusCode(400);
+            }
+        } catch (Exception $e) {
             return response()->json([
-                "message" => "user created, now you can login",
-                "code" => 200,
-                "userDetails" => $userResult
-            ]);
-        } else {
-            return response()->json([
-                "message" => "unable to create user",
-                "code" => 200
+                "message" => "user insertion failed. Check payload.",
+                "code" => 400,
+                "error_message" => $e
             ])
             ->setStatusCode(400);
         }
-    } catch (Exception $e) {
-        return response()->json([
-            "message" => "user insertion failed. Check payload.",
-            "code" => 400,
-            "error_message" => $e
-        ])
-        ->setStatusCode(400);
-    }
-}
+   }
 
     public function updateUser(Request $request)
     {
@@ -122,6 +147,15 @@ class LoginController extends Controller
 
             $user = Login::select(["*"])->where("id", $auth_id)->update($request->all());
             if ($user) {
+
+                $notification = new Notification();
+                $notification->notification_text = "Profile updated";
+                $notification->is_view = "N";
+                $notification->user_id = $auth_id;
+                $notification->published_at = now();
+                $notification->type = "U";
+                $notification->save();
+
                 return response()->json([
                     "message" => "profile updated...",
                     "status" => true,
