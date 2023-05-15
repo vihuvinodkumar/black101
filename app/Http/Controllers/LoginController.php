@@ -33,9 +33,11 @@ class LoginController extends Controller
                 $payload = JWTFactory::sub($userDetails[0]->id)->myCustomObject($userDetails)->make();
                 $token = JWTAuth::fromUser($userDetails[0], $payload);
 
-                $fmcToken = Login::firstOrNew([]);
-                $fmcToken->device_token = $request->device_token;
-                $fmcToken->update();;
+//                 $fmcToken = Login::firstOrNew([]);
+//                 $fmcToken->device_token = $request->device_token;
+//                 $fmcToken->update();;
+                $userDetails->device_token=$request->device_token;
+                $userDetails->update();
                 
                 return response()->json([
                     "message" => "login successfully",
