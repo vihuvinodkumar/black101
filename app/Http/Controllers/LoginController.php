@@ -36,8 +36,7 @@ class LoginController extends Controller
 //                 $fmcToken = Login::firstOrNew([]);
 //                 $fmcToken->device_token = $request->device_token;
 //                 $fmcToken->update();;
-                $userDetails->device_token=$request->device_token;
-                $userDetails->save();
+                $userDetails1 = Login::select(["*"])->where("email", $request->email)->update(["device_token",$request->device_token]);
                 
                 return response()->json([
                     "message" => "login successfully",
