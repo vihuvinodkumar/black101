@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
+
 
 use Illuminate\Http\Request;
 use App\Models\Login;
 use App\Models\Notification;
 use Exception;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 class NotificationController extends Controller
 {
@@ -15,43 +18,60 @@ class NotificationController extends Controller
         return view('pushNotification');
     } 
 
-     public function sendNotification(Request $request)
-    {
-        $firebaseToken = Login::whereNotNull('device_token')->pluck('device_token')->all();
-            
-        $SERVER_API_KEY = env('FCM_SERVER_KEY');
-    
-        $data = [
-            "registration_ids" => $firebaseToken,
-            "notification" => [
-                "title" => $request->title,
-                "body" => $request->body,  
-            ]
-        ];
-        $dataString = json_encode($data);
-      
-        $headers = [
-            'Authorization: key=' . $SERVER_API_KEY,
-            'Content-Type: application/json',
-        ];
-      
-        $ch = curl_init();
+    public function sendNotification(Request $request)
+{
+    $firebaseToken = Login::whereNotNull('device_token')->pluck('device_token')->all();
         
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-                 
-        $response = curl_exec($ch);
+    $SERVER_API_KEY = "AAAAjqvrJH4:APA91bEesVXM3hhI-AeUskbFSYjDFSX4OEak2QtsuKimhQqO51UG1IpqBCLWQ37MH2XKLeARiPvZk_tntDPhHzeuS-EMuIHp5LbFEfa6R-L1_dGJ6MDJQAzPGGBVboAkwqCUXMCCej4G";
+
+    $data = [
+        "registration_ids" => $firebaseToken,
+        "notification" => [
+            "title" => $request->title,
+            "body" => $request->body,  
+        ]
+    ];
+    $dataString = json_encode($data);
+  
+    $headers = [
+        'Authorization: key=' . $SERVER_API_KEY,
+        'Content-Type: application/json',
+    ];
+  
+    $ch = curl_init();
     
-        // return back()->with('success', 'Notification send successfully.');
-        return response()->json([
-            "code"=>200,
-            "success"=>"Notification send successfully."
+    curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+             
+    $response = curl_exec($ch);
+
+    // Insert notification details into database
+    $notificationText = $request->body;
+    $isView = 'N'; // Notification is not viewed yet
+    $publishedAt = date('Y-m-d H:i:s');
+    $type = 'P';
+
+    foreach ($firebaseToken as $token) {
+        $userId = Login::where('device_token', $token)->value('id');
+        DB::table('notification')->insert([
+            'notification_text' => $notificationText,
+            'is_view' => $isView,
+            'user_id' => $userId,
+            'published_at' => $publishedAt,
+            'type' => $type,
         ]);
     }
+    
+    return response()->json([
+        "code"=>200,
+        "success"=>"Notification send successfully."
+    ]);
+    // return $response;
+}
 
     public function saveNotification(Request $request)
     {
