@@ -14,8 +14,10 @@ class RatingController extends Controller
         try {
             $checkRating = Rating::select("*")->where("product_id", $request->product_id)->where("user_id", $request->user_id)->get();
             if ($checkRating->count() > 0) {
-                $checkRating->rating=$request->rating;
-                $checkRating->save();
+                $checkRating1 = Rating::select("*")->where("product_id", $request->product_id)->where("user_id", $request->user_id)->first();
+                $checkRating1->rating=$request->rating;
+                $checkRating1->update();
+
                 
                 return response()->json([
                     "code" => 200,
