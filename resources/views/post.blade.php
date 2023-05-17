@@ -27,13 +27,23 @@
         });
     })
 </script>
+<style>
+    .sidebar{
+        top:0;
+        position:fixed;
+        z-index: 9999;
+    }
+</style>
 
 <body>
-    <div class="container-fluid d-flex row">
+    <div class="container-fluid">
         <div class="col-lg-12">
-            @include("sidebar/sidebar")
+            <div class="sidebar">
+                @include("sidebar/sidebar")
+            </div>
         </div>
         <div class="col-lg-12">
+        <div class="table-responsive" style="overflow-x: scroll;">
             <div class="container-fluid" style="margin-top:100px">
                 <table class="table" id="postTable">
                     <tbody>
@@ -97,6 +107,7 @@
 
             </div>
         </div>
+</div>
 </body>
 
 </html>
