@@ -58,9 +58,9 @@
                             <td>{{ $user->id }}</td>
                             <td>
                             @if($user->profile_photo=='NA'||$user->profile_photo==null)
-                            <img src="{{ 'http://100.25.19.89/black101/public/storage/'.str_replace('public', '', $user->profile_photo) }}" style="height:50px;width:50px;" />
-                            @else
                             <img src="https://img.freepik.com/premium-vector/man-avatar-profile-round-icon_24640-14044.jpg?w=360" style="height:50px;width:50px;" />
+                            @else
+                            <img src="{{ 'http://100.25.19.89/black101/public/storage/'.str_replace('public', '', $user->profile_photo) }}" style="height:50px;width:50px;" />
                             @endif
                             </td>
                             <td>{{ $user->name }}</td>
