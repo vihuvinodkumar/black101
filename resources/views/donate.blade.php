@@ -37,12 +37,12 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-12">
                 <div class="sidebar">
                     @include("sidebar/sidebar")
                 </div>
             </div>
-            <div class="col-lg-10">
+            <div class="col-lg-12">
                 <div class="container-fluid">
                     <div class="table-container">
                         <table class="table table-hover">
