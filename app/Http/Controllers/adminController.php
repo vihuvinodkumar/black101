@@ -106,8 +106,8 @@ class adminController extends Controller
         $story = Story::find($id);
         if ($story) {
             $code = 200;
-            $message = "testing for message";
-            return view('addPost', compact('story', "code", "message"));
+            $message = "Edit post successfully!";
+            return view('addPost', compact('story'));
         } else {
             return view("404");
         }

@@ -14,9 +14,9 @@
 }
 
 /* Change background color of toggler when menu is open */
-.navbar-toggler:not(.collapsed) {
+/* .navbar-toggler:not(.collapsed) {
     background-color: #fff;
-}
+} */
 
 .left {
     justify-content: flex-end;
