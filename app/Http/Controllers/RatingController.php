@@ -14,11 +14,16 @@ class RatingController extends Controller
         try {
             $checkRating = Rating::select("*")->where("product_id", $request->product_id)->where("user_id", $request->user_id)->get();
             if ($checkRating->count() > 0) {
-                return response()->json([
-                    "code" => 400,
-                    "message" => "You already liked this post.",
+                $checkRating1 = Rating::select("*")->where("product_id", $request->product_id)->where("user_id", $request->user_id)->first();
+                $checkRating1->rating=$request->rating;
+                $checkRating1->update();
 
-                ])->setStatusCode(400);
+                
+                return response()->json([
+                    "code" => 200,
+                    "message" => "Your rating Updated",
+
+                ])->setStatusCode(200);
             }
             $result = Rating::create($request->all());
             if ($result) {
