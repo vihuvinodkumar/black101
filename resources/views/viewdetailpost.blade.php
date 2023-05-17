@@ -14,7 +14,7 @@
 </head>
 <script>
     $(document).ready(function() {
-        $('#post p:nth-child(3)').each(function() {
+        $('#post p:nth-child(4)').each(function() {
             var originalDate = $(this).text(); // Get the original date
 
             // Convert the date to the desired format (e.g., DD/MM/YYYY)
