@@ -120,7 +120,6 @@
             max-width: 800px;
         }
         }
-
         select {
                                         padding: 2px 2px 2px 2px;
                                         border: none;
