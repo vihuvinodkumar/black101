@@ -120,6 +120,17 @@
             max-width: 800px;
         }
         }
+
+        select {
+                                        padding: 2px 2px 2px 2px;
+                                        border: none;
+                                        background-image: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png");
+                                        background-position: right center;
+                                        background-repeat: no-repeat;
+                                        appearance: none;
+                                        -webkit-appearance: none;
+
+                                    }
     </style>
     <script>
         $(document).ready(function() {
