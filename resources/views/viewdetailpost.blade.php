@@ -10,11 +10,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-    <title>Document</title>
+    <title>View Post</title>
 </head>
 <script>
     $(document).ready(function() {
-        $('#post p:nth-child(4)').each(function() {
+        $('#post p:nth-child(3)').each(function() {
             var originalDate = $(this).text(); // Get the original date
 
             // Convert the date to the desired format (e.g., DD/MM/YYYY)
@@ -34,7 +34,7 @@
                 <h1 class="post__title">{{ $post->headline }}</h1>
                 <p class="post__subheadline">{{ $post->sub_headline }}</p>
                 <p class="post__overview">{{ $post->overview }}</p>
-                <p class="post__publish_at">Publish at :- {{ $post->publish_at }}</p>
+                <p class="post__publish_at">Publish at : {{ $post->publish_at }}</p>
                 <p class="post__cft">{{ $post->cft }}</p>
                 <p class="post__day_of_publish">Day of publish :- {{ $post->day_of_publish }}</p>
             </div>
