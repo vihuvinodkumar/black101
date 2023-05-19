@@ -33,6 +33,16 @@
         position:fixed;
         z-index: 9999;
     }
+
+    .my-active span{
+        background-color: #5cb85c !important;
+        color: white !important;
+        border-color: #5cb85c !important;
+    }
+    ul.pager>li {
+        display: inline-flex;
+        padding: 5px;
+    }
 </style>
 
 <body>
@@ -104,6 +114,10 @@
 
                     </tbody>
                 </table>
+                <center class="mt-5">
+                        {{ $posts->links('pagination.custom') }}
+                </center>
+               </div>
 
             </div>
         </div>

@@ -80,9 +80,23 @@
 
                     </tbody>
                 </table>
+                <center class="mt-5">
+                        {{ $users->links('pagination.custom') }}
+                </center>
             </div>
         </div>
     </div>
 </body>
+<style>
+     .my-active span{
+        background-color: #5cb85c !important;
+        color: white !important;
+        border-color: #5cb85c !important;
+    }
+    ul.pager>li {
+        display: inline-flex;
+        padding: 5px;
+    }
+</style>
 
 </html>

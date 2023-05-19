@@ -115,14 +115,12 @@ class adminController extends Controller
 
     function getAllPost()
     {
-        $posts = DB::select("SELECT story.*, 
-        IFNULL(AVG(rating.rating), 0) AS avg_rating, 
-        IFNULL(COUNT(rating.rating), 0) AS total_ratings, 
-        IFNULL(COUNT(likes.id), 0) AS total_likes
-    FROM story 
-    LEFT JOIN rating ON story.id = rating.product_id 
-    LEFT JOIN likes ON story.id = likes.post_id 
-    GROUP BY story.id");
+        $posts = DB::table('story')
+    ->leftJoin('rating', 'story.id', '=', 'rating.product_id')
+    ->leftJoin('likes', 'story.id', '=', 'likes.post_id')
+    ->select('story.*', DB::raw('IFNULL(AVG(rating.rating), 0) AS avg_rating'), DB::raw('IFNULL(COUNT(rating.rating), 0) AS total_ratings'), DB::raw('IFNULL(COUNT(likes.id), 0) AS total_likes'))
+    ->groupBy('story.id')
+    ->paginate(10);
         // $posts = Story::all();
         if ($posts) {
             return view('post', compact('posts'));
@@ -144,7 +142,7 @@ class adminController extends Controller
 
     public function showAllUsers()
     {
-        $users = Login::all();
+        $users = Login::paginate(10);
         return view('user', compact('users'));
     }
 
@@ -173,7 +171,7 @@ class adminController extends Controller
 
     public function getDonate(Request $request)
     {
-        $donates = Donate::all();
+        $donates = Donate::paginate(10);
         return view('donate', compact('donates'));
     }
 }

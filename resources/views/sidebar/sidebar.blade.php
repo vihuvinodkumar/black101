@@ -28,7 +28,7 @@
 <body>
     <div class="navbar">
         <nav class="navbar navbar-expand-lg navbar-dark color">
-            <a class="navbar-brand" href="#">Black101</a>
+            <a class="navbar-brand" href="#">Black History Hub</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

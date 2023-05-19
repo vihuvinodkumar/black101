@@ -26,56 +26,65 @@
 
         .table {
             width: max-content;
-            margin-top:100;
+            margin-top:100px;
         
         }
+        .my-active span{
+        background-color: #5cb85c !important;
+        color: white !important;
+        border-color: #5cb85c !important;
+    }
+    ul.pager>li {
+        display: inline-flex;
+        padding: 5px;
+    }
     </style>
 
     <title>List of Users</title>
 </head>
 
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="sidebar">
-                    @include("sidebar/sidebar")
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="container-fluid">
-                    <div class="table-container">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>User ID</th>
-                                    <th>Donated At</th>
-                                    <th>Amount</th>
-                                    <th>Transaction ID</th>
-                                    <th>Created At</th>
-                                    <th>Updated At</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($donates as $donate)
-                                <tr>
-                                    <td>{{ $donate->id }}</td>
-                                    <td>{{ $donate->user_id }}</td>
-                                    <td>{{ $donate->donated_at }}</td>
-                                    <td>{{ $donate->amount }}</td>
-                                    <td>{{ $donate->transaction_id }}</td>
-                                    <td>{{ $donate->created_at }}</td>
-                                    <td>{{ $donate->updated_at }}</td>
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
-                                    </table>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
 
-                                    </body>
-                                    </html>
+        <div class="col-lg-12">
+            @include("sidebar/sidebar")
+        </div>
+        <div class="col-lg-12">
+            <div class="table-responsive" style="overflow-x: scroll;">
+            <div class="container-fluid m-4">
+                <table class="table table-hover" id="donateTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>Donated At</th>
+                        <th>Amount</th>
+                        <th>Transaction ID</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($donates as $donate)
+                    <tr>
+                        <td>{{ $donate->id }}</td>
+                        <td>{{ $donate->user_id }}</td>
+                        <td>{{ $donate->donated_at }}</td>
+                        <td>{{ $donate->amount }}</td>
+                        <td>{{ $donate->transaction_id }}</td>
+                        <td>{{ $donate->created_at }}</td>
+                        <td>{{ $donate->updated_at }}</td>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                </table>
+                <center class="mt-5">
+                        {{ $donates->links('pagination.custom') }}
+                </center>
+               </div>
+        </div>
+    </div>
+   
+</body>
+</html>
