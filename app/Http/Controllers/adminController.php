@@ -142,7 +142,7 @@ class adminController extends Controller
 
     public function showAllUsers()
     {
-        $users = Login::orderByDesc('created_at')paginate(10);
+        $users = Login::orderByDesc('created_at')->paginate(10);
         return view('user', compact('users'));
     }
 
