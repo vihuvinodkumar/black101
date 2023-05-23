@@ -26,7 +26,7 @@ class StripePaymentController extends Controller
 public function stripePost(Request $request)
 {
     // print_r($request->all()); die();
-    Stripe\Stripe::setApiKey('sk_test_51MyqNkSIrVUMjLi4llXBuKnp2qbiAzZNwbc5NV4rr7p1YEXi4Nwekwj7fy3l02k6ZTiv53tI2A07nVDBbRk4ZVVF00ZnSZ9kvU');
+    Stripe\Stripe::setApiKey('sk_test_51N7V4CD0tzja3zlTmYDbCgBgOZlh66z5OUxM27QrsP1YC5HlWH1OHsLQ6oSQ82QncVACkmN1ZP09wd1wHKN2DdPr004FytFYg9');
     $customer = Stripe\Customer::create(array(
             "address" => [
                 "line1" => "123 Main St",

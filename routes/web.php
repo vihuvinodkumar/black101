@@ -47,10 +47,10 @@ Route::post('sendNotification', [NotificationController::class, 'sendNotificatio
 
 //for strope payment gateway-----
   
-// Route::controller(StripePaymentController::class)->group(function(){
-//     Route::get('stripe', 'stripe');
-//     Route::post('stripe', 'stripePost')->name('stripe.post');
-// });
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe', 'stripe');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
 
 // payment -----
 Route::get('/pay', [PaymentController::class, 'payWithStripe'])->name('pay');

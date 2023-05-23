@@ -36,7 +36,7 @@
                             method="post" 
                             class="require-validation"
                             data-cc-on-file="false"
-                            data-stripe-publishable-key="pk_test_51MyqNkSIrVUMjLi49vUQkIld1JdrntKzyREA2KmiY7lse31bmFoQz1HxMtY2fjF61YbO3sEmkH9AaX8eSTh0GEh500IjAKTmHv"
+                            data-stripe-publishable-key="pk_test_51N7V4CD0tzja3zlTCZdUhsV26jIj8uF9LDsPSM3ggvnFMSRvhVMCZxUovk2fxcQVEqLRdkk0lZnolZ88mRqunYgy00nIWduFLY"
                             id="payment-form">
                         @csrf
     
