@@ -334,9 +334,11 @@ class LoginController extends Controller
     public function resetPasswordLoad(Request $request)
     {
         $resetData = PasswordReset::where('token', $request->token)->get();
+
         if (isset($request->token) && count($resetData) > 0) {
 
             $user = Login::where('email', $resetData[0]['email'])->get();
+
             return view('resetPasswordForm', compact('user'));
         } else {
             return view('404');
@@ -352,8 +354,9 @@ class LoginController extends Controller
         ]);
 
         $user = Login::find($request->id);
+        
         $user->password = $request->password;
-        $user->save();
+        $user->update();
 
         PasswordReset::where("email", $user->email)->delete();
 
